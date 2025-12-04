@@ -1,11 +1,12 @@
 ---
 /**
  * 仪表盘布局
- * 包含侧边栏和顶部导航
+ * 包含侧边栏、顶部导航和多标签栏
  */
 import Layout from './Layout.astro';
 import Sidebar from '../components/dashboard/Sidebar.astro';
 import Header from '../components/dashboard/Header.astro';
+import TabBar from '../components/TabBar.astro';
 
 interface Props {
   title: string;
@@ -26,6 +27,9 @@ const currentPath = Astro.url.pathname;
       <!-- 顶部导航 -->
       <Header title={title} />
 
+      <!-- 多标签栏 -->
+      <TabBar />
+
       <!-- 页面内容 -->
       <main class="p-4 lg:p-6">
         <slot />
@@ -35,6 +39,35 @@ const currentPath = Astro.url.pathname;
 </Layout>
 
 <script>
+  import { initUiSettings, loadUiSettings } from '../lib/ui-settings';
+  import { addTab, getTabByPath } from '../lib/tabs-store';
+  import { restoreScroll } from '../lib/page-cache';
+
+  // Initialize UI settings and apply skin on page load
+  initUiSettings();
+
+  // Add current page to tabs
+  const currentPath = window.location.pathname;
+  const currentTitle = document.title.split(' - ')[0] || '页面';
+
+  // Check if tab already exists, if not add it
+  const existingTab = getTabByPath(currentPath);
+  if (!existingTab && currentPath !== '/dashboard') {
+    addTab({
+      title: currentTitle,
+      path: currentPath,
+      closable: true,
+    });
+
+    // Trigger tab bar re-render
+    if (typeof (window as any).renderTabs === 'function') {
+      (window as any).renderTabs();
+    }
+  }
+
+  // Restore scroll position for current page
+  restoreScroll(currentPath);
+
   // 页面加载时同步侧边栏状态
   const mainContent = document.getElementById('main-content');
   const isCollapsed = localStorage.getItem('sidebar-collapsed') === 'true';
@@ -43,4 +76,14 @@ const currentPath = Astro.url.pathname;
     mainContent.classList.remove('lg:pl-64');
     mainContent.classList.add('lg:pl-[4.5rem]');
   }
+
+  // Make UI settings functions globally available for quick settings
+  (window as any).uiSettings = {
+    loadSettings: loadUiSettings,
+    applySkin: (skin: string) => {
+      const { applySkin } = await import('../lib/ui-settings');
+      applySkin(skin as any);
+      window.location.reload(); // Reload to apply skin
+    },
+  };
 </script>

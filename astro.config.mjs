@@ -1,6 +1,7 @@
 // @ts-check
 import { defineConfig } from 'astro/config';
 import tailwind from '@astrojs/tailwind';
+import react from '@astrojs/react';
 
 // 动态导入适配器
 const DEPLOY_TARGET = process.env.DEPLOY_TARGET || 'cloudflare';
@@ -16,7 +17,7 @@ if (DEPLOY_TARGET === 'vercel') {
 
 // https://astro.build/config
 export default defineConfig({
-  integrations: [tailwind()],
+  integrations: [tailwind(), react()],
   output: 'server',
   adapter,
   server: {

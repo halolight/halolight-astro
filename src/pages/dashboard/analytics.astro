@@ -1,8 +1,13 @@
 ---
 /**
- * 分析页面
+ * 分析页面 - 使用新的仪表盘小部件
  */
 import DashboardLayout from '../../layouts/DashboardLayout.astro';
+import ChartBarWidget from '../../components/dashboard/widgets/ChartBarWidget.astro';
+import ChartPieWidget from '../../components/dashboard/widgets/ChartPieWidget.astro';
+import RecentUsersWidget from '../../components/dashboard/widgets/RecentUsersWidget.astro';
+import TasksWidget from '../../components/dashboard/widgets/TasksWidget.astro';
+import CalendarWidget from '../../components/dashboard/widgets/CalendarWidget.astro';
 
 // 分析数据
 const metrics = [
@@ -72,61 +77,13 @@ const topCountries = [
       }
     </div>
 
-    <!-- 图表区域 -->
+    <!-- 图表小部件区域 -->
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-      <!-- 访问趋势图表 -->
-      <div class="card p-6">
-        <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-4">访问趋势</h3>
-        <div
-          class="h-64 flex items-center justify-center bg-gray-100 dark:bg-gray-700/50 rounded-lg"
-        >
-          <div class="text-center text-gray-500 dark:text-gray-400">
-            <svg
-              class="w-12 h-12 mx-auto mb-2"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M7 12l3-3 3 3 4-4M8 21l4-4 4 4M3 4h18M4 4h16v12a1 1 0 01-1 1H5a1 1 0 01-1-1V4z"
-              ></path>
-            </svg>
-            <p>折线图待集成</p>
-          </div>
-        </div>
-      </div>
+      <!-- 柱状图小部件 - 销售统计 -->
+      <ChartBarWidget title="月度销售统计" />
 
-      <!-- 设备分布图表 -->
-      <div class="card p-6">
-        <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-4">设备分布</h3>
-        <div
-          class="h-64 flex items-center justify-center bg-gray-100 dark:bg-gray-700/50 rounded-lg"
-        >
-          <div class="text-center text-gray-500 dark:text-gray-400">
-            <svg
-              class="w-12 h-12 mx-auto mb-2"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M11 3.055A9.001 9.001 0 1020.945 13H11V3.055z"></path>
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M20.488 9H15V3.512A9.025 9.025 0 0120.488 9z"></path>
-            </svg>
-            <p>饼图待集成</p>
-          </div>
-        </div>
-      </div>
+      <!-- 饼图小部件 - 设备分布 -->
+      <ChartPieWidget title="设备分布" />
     </div>
 
     <!-- 数据表格 -->
@@ -180,6 +137,18 @@ const topCountries = [
           }
         </div>
       </div>
+    </div>
+
+    <!-- 扩展小部件区域 - 显示最近用户、待办任务和日程 -->
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+      <!-- 最近用户小部件 -->
+      <RecentUsersWidget />
+
+      <!-- 待办任务小部件 -->
+      <TasksWidget />
+
+      <!-- 日历小部件 -->
+      <CalendarWidget />
     </div>
   </div>
 </DashboardLayout>
