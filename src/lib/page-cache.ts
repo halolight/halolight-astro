@@ -3,7 +3,7 @@
  * Saves and restores scroll position, form data, and custom state
  */
 
-const CACHE_KEY = "page-cache-storage";
+const CACHE_KEY = 'page-cache-storage';
 
 interface PageState {
   scrollY: number;
@@ -18,7 +18,7 @@ type CacheStore = Record<string, PageState>;
  * Load entire cache from sessionStorage
  */
 function loadCache(): CacheStore {
-  if (typeof sessionStorage === "undefined") {
+  if (typeof sessionStorage === 'undefined') {
     return {};
   }
 
@@ -26,7 +26,7 @@ function loadCache(): CacheStore {
     const stored = sessionStorage.getItem(CACHE_KEY);
     return stored ? JSON.parse(stored) : {};
   } catch (error) {
-    console.error("Failed to load page cache:", error);
+    console.error('Failed to load page cache:', error);
     return {};
   }
 }
@@ -35,14 +35,14 @@ function loadCache(): CacheStore {
  * Save entire cache to sessionStorage
  */
 function saveCache(cache: CacheStore): void {
-  if (typeof sessionStorage === "undefined") {
+  if (typeof sessionStorage === 'undefined') {
     return;
   }
 
   try {
     sessionStorage.setItem(CACHE_KEY, JSON.stringify(cache));
   } catch (error) {
-    console.error("Failed to save page cache:", error);
+    console.error('Failed to save page cache:', error);
   }
 }
 
@@ -57,10 +57,7 @@ export function getPageState(path: string): PageState | undefined {
 /**
  * Set page state for a specific path
  */
-export function setPageState(
-  path: string,
-  state: Partial<PageState>
-): void {
+export function setPageState(path: string, state: Partial<PageState>): void {
   const cache = loadCache();
   const existing = cache[path] || {
     scrollY: 0,
@@ -89,7 +86,7 @@ export function clearPageState(path: string): void {
  * Clear all cached page states
  */
 export function clearAllPageCache(): void {
-  if (typeof sessionStorage === "undefined") {
+  if (typeof sessionStorage === 'undefined') {
     return;
   }
   sessionStorage.removeItem(CACHE_KEY);
@@ -100,7 +97,7 @@ export function clearAllPageCache(): void {
  * Call this function on page load
  */
 export function restoreScroll(path: string): void {
-  if (typeof window === "undefined") {
+  if (typeof window === 'undefined') {
     return;
   }
 
@@ -120,11 +117,11 @@ export function restoreScroll(path: string): void {
     }, 100);
   };
 
-  window.addEventListener("scroll", handleScroll, { passive: true });
+  window.addEventListener('scroll', handleScroll, { passive: true });
 
   // Cleanup on page unload
-  window.addEventListener("beforeunload", () => {
-    window.removeEventListener("scroll", handleScroll);
+  window.addEventListener('beforeunload', () => {
+    window.removeEventListener('scroll', handleScroll);
     clearTimeout(timeoutId);
   });
 }
@@ -164,10 +161,7 @@ export function clearFormCache(path: string, formKey: string): void {
 /**
  * Get custom state cache
  */
-export function getStateCache<T = unknown>(
-  path: string,
-  stateKey: string
-): T | undefined {
+export function getStateCache<T = unknown>(path: string, stateKey: string): T | undefined {
   const state = getPageState(path);
   return state?.customState?.[stateKey] as T | undefined;
 }
@@ -175,11 +169,7 @@ export function getStateCache<T = unknown>(
 /**
  * Save custom state to cache
  */
-export function saveStateCache<T = unknown>(
-  path: string,
-  stateKey: string,
-  value: T
-): void {
+export function saveStateCache<T = unknown>(path: string, stateKey: string, value: T): void {
   const state = getPageState(path) || {
     scrollY: 0,
     timestamp: Date.now(),
@@ -213,7 +203,7 @@ export function enableFormAutoSave(
   formKey: string,
   formElement: HTMLFormElement
 ): () => void {
-  if (typeof window === "undefined") {
+  if (typeof window === 'undefined') {
     return () => {};
   }
 
@@ -222,13 +212,11 @@ export function enableFormAutoSave(
   if (cached) {
     const _formData = new FormData(formElement);
     Object.entries(cached).forEach(([key, value]) => {
-      const input = formElement.elements.namedItem(key) as
-        | HTMLInputElement
-        | null;
+      const input = formElement.elements.namedItem(key) as HTMLInputElement | null;
       if (input) {
-        if (input.type === "checkbox") {
+        if (input.type === 'checkbox') {
           input.checked = Boolean(value);
-        } else if (input.type === "radio") {
+        } else if (input.type === 'radio') {
           input.checked = input.value === value;
         } else {
           input.value = String(value);
@@ -247,12 +235,12 @@ export function enableFormAutoSave(
     saveFormCache(path, formKey, data);
   };
 
-  formElement.addEventListener("input", handleInput);
-  formElement.addEventListener("change", handleInput);
+  formElement.addEventListener('input', handleInput);
+  formElement.addEventListener('change', handleInput);
 
   // Return cleanup function
   return () => {
-    formElement.removeEventListener("input", handleInput);
-    formElement.removeEventListener("change", handleInput);
+    formElement.removeEventListener('input', handleInput);
+    formElement.removeEventListener('change', handleInput);
   };
 }

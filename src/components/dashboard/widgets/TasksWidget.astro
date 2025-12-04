@@ -8,61 +8,61 @@ interface Props {
   class?: string;
 }
 
-const { title = "待办任务", class: className } = Astro.props;
+const { title = '待办任务', class: className } = Astro.props;
 
 // Mock tasks data
 const tasks = [
   {
-    id: "1",
-    title: "完成项目文档",
+    id: '1',
+    title: '完成项目文档',
     completed: false,
-    priority: "high",
-    dueDate: "今天",
+    priority: 'high',
+    dueDate: '今天',
   },
   {
-    id: "2",
-    title: "代码审查",
+    id: '2',
+    title: '代码审查',
     completed: true,
-    priority: "medium",
-    dueDate: "今天",
+    priority: 'medium',
+    dueDate: '今天',
   },
   {
-    id: "3",
-    title: "团队周会",
+    id: '3',
+    title: '团队周会',
     completed: false,
-    priority: "high",
-    dueDate: "明天",
+    priority: 'high',
+    dueDate: '明天',
   },
   {
-    id: "4",
-    title: "优化数据库查询",
+    id: '4',
+    title: '优化数据库查询',
     completed: false,
-    priority: "medium",
-    dueDate: "本周",
+    priority: 'medium',
+    dueDate: '本周',
   },
   {
-    id: "5",
-    title: "更新依赖包",
+    id: '5',
+    title: '更新依赖包',
     completed: false,
-    priority: "low",
-    dueDate: "下周",
+    priority: 'low',
+    dueDate: '下周',
   },
 ];
 
 const priorityColors = {
-  high: "text-red-600 dark:text-red-400",
-  medium: "text-yellow-600 dark:text-yellow-400",
-  low: "text-green-600 dark:text-green-400",
+  high: 'text-red-600 dark:text-red-400',
+  medium: 'text-yellow-600 dark:text-yellow-400',
+  low: 'text-green-600 dark:text-green-400',
 };
 
 const priorityLabels = {
-  high: "高",
-  medium: "中",
-  low: "低",
+  high: '高',
+  medium: '中',
+  low: '低',
 };
 ---
 
-<div class:list={["card p-6", className]}>
+<div class:list={['card p-6', className]}>
   <div class="flex items-center justify-between mb-4">
     <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
       {title}
@@ -87,10 +87,10 @@ const priorityLabels = {
           <div class="flex-1 min-w-0">
             <p
               class:list={[
-                "text-sm font-medium",
+                'text-sm font-medium',
                 task.completed
-                  ? "line-through text-gray-400 dark:text-gray-500"
-                  : "text-gray-900 dark:text-white",
+                  ? 'line-through text-gray-400 dark:text-gray-500'
+                  : 'text-gray-900 dark:text-white',
               ]}
             >
               {task.title}
@@ -98,20 +98,14 @@ const priorityLabels = {
             <div class="flex items-center gap-2 mt-1">
               <span
                 class:list={[
-                  "text-xs font-medium",
+                  'text-xs font-medium',
                   priorityColors[task.priority as keyof typeof priorityColors],
                 ]}
               >
-                {
-                  priorityLabels[
-                    task.priority as keyof typeof priorityLabels
-                  ]
-                }
+                {priorityLabels[task.priority as keyof typeof priorityLabels]}
                 优先级
               </span>
-              <span class="text-xs text-gray-500 dark:text-gray-400">
-                • {task.dueDate}
-              </span>
+              <span class="text-xs text-gray-500 dark:text-gray-400">• {task.dueDate}</span>
             </div>
           </div>
           <button
@@ -157,10 +151,10 @@ const priorityLabels = {
 
 <script>
   // Handle task checkbox changes
-  document.addEventListener("DOMContentLoaded", () => {
+  document.addEventListener('DOMContentLoaded', () => {
     const checkboxes = document.querySelectorAll('input[type="checkbox"][data-task-id]');
     checkboxes.forEach((checkbox) => {
-      checkbox.addEventListener("change", (e) => {
+      checkbox.addEventListener('change', (e) => {
         const target = e.target as HTMLInputElement;
         const taskId = target.dataset.taskId;
         console.log(`Task ${taskId} completed:`, target.checked);

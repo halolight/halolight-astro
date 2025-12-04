@@ -3,8 +3,8 @@
  * Manages authentication with multi-account switching support
  */
 
-const AUTH_STORAGE_KEY = "auth-storage";
-const TOKEN_COOKIE_NAME = "token";
+const AUTH_STORAGE_KEY = 'auth-storage';
+const TOKEN_COOKIE_NAME = 'token';
 
 export interface User {
   id: string;
@@ -38,7 +38,7 @@ const defaultState: AuthState = {
  * Load auth state from localStorage
  */
 export function loadAuthState(): AuthState {
-  if (typeof localStorage === "undefined") {
+  if (typeof localStorage === 'undefined') {
     return defaultState;
   }
 
@@ -54,7 +54,7 @@ export function loadAuthState(): AuthState {
       ...parsed.state,
     };
   } catch (error) {
-    console.error("Failed to load auth state:", error);
+    console.error('Failed to load auth state:', error);
     return defaultState;
   }
 }
@@ -63,7 +63,7 @@ export function loadAuthState(): AuthState {
  * Save auth state to localStorage
  */
 export function saveAuthState(state: Partial<AuthState>): void {
-  if (typeof localStorage === "undefined") {
+  if (typeof localStorage === 'undefined') {
     return;
   }
 
@@ -85,7 +85,7 @@ export function saveAuthState(state: Partial<AuthState>): void {
 
     localStorage.setItem(AUTH_STORAGE_KEY, JSON.stringify(data));
   } catch (error) {
-    console.error("Failed to save auth state:", error);
+    console.error('Failed to save auth state:', error);
   }
 }
 
@@ -93,14 +93,14 @@ export function saveAuthState(state: Partial<AuthState>): void {
  * Get cookie value
  */
 function getCookie(name: string): string | null {
-  if (typeof document === "undefined") {
+  if (typeof document === 'undefined') {
     return null;
   }
 
   const value = `; ${document.cookie}`;
   const parts = value.split(`; ${name}=`);
   if (parts.length === 2) {
-    return parts.pop()?.split(";").shift() || null;
+    return parts.pop()?.split(';').shift() || null;
   }
   return null;
 }
@@ -109,23 +109,21 @@ function getCookie(name: string): string | null {
  * Set cookie value
  */
 function setCookie(name: string, value: string, days = 1): void {
-  if (typeof document === "undefined") {
+  if (typeof document === 'undefined') {
     return;
   }
 
   const expires = new Date();
   expires.setTime(expires.getTime() + days * 24 * 60 * 60 * 1000);
-  const secure =
-    typeof window !== "undefined" &&
-    window.location.protocol === "https:";
-  document.cookie = `${name}=${value};expires=${expires.toUTCString()};path=/;${secure ? "secure;" : ""}samesite=strict`;
+  const secure = typeof window !== 'undefined' && window.location.protocol === 'https:';
+  document.cookie = `${name}=${value};expires=${expires.toUTCString()};path=/;${secure ? 'secure;' : ''}samesite=strict`;
 }
 
 /**
  * Remove cookie
  */
 function removeCookie(name: string): void {
-  if (typeof document === "undefined") {
+  if (typeof document === 'undefined') {
     return;
   }
   document.cookie = `${name}=;expires=Thu, 01 Jan 1970 00:00:00 UTC;path=/;`;
@@ -141,11 +139,11 @@ export async function login(credentials: {
 }): Promise<void> {
   // Mock login - replace with actual API call
   const mockUser: AccountWithToken = {
-    id: "1",
-    name: "演示用户",
+    id: '1',
+    name: '演示用户',
     email: credentials.email,
     avatar: `https://api.dicebear.com/7.x/avataaars/svg?seed=${credentials.email}`,
-    role: "admin",
+    role: 'admin',
     token: `mock-token-${Date.now()}`,
   };
 
@@ -176,8 +174,8 @@ export async function logout(): Promise<void> {
   });
 
   // Redirect to login
-  if (typeof window !== "undefined") {
-    window.location.href = "/auth/login";
+  if (typeof window !== 'undefined') {
+    window.location.href = '/auth/login';
   }
 }
 
@@ -189,7 +187,7 @@ export async function switchAccount(accountId: string): Promise<void> {
   const account = state.accounts.find((item) => item.id === accountId);
 
   if (!account) {
-    throw new Error("账号不存在");
+    throw new Error('账号不存在');
   }
 
   setCookie(TOKEN_COOKIE_NAME, account.token, 7);
@@ -202,7 +200,7 @@ export async function switchAccount(accountId: string): Promise<void> {
   });
 
   // Refresh page to apply new account
-  if (typeof window !== "undefined") {
+  if (typeof window !== 'undefined') {
     window.location.reload();
   }
 }
@@ -216,20 +214,20 @@ export async function loadAccounts(): Promise<void> {
   // Mock accounts - replace with actual API call
   const mockAccounts: AccountWithToken[] = [
     {
-      id: "1",
-      name: "主账号",
-      email: "admin@halolight.h7ml.cn",
-      avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=admin",
-      role: "admin",
-      token: "mock-token-1",
+      id: '1',
+      name: '主账号',
+      email: 'admin@halolight.h7ml.cn',
+      avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=admin',
+      role: 'admin',
+      token: 'mock-token-1',
     },
     {
-      id: "2",
-      name: "测试账号",
-      email: "test@example.com",
-      avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=test",
-      role: "user",
-      token: "mock-token-2",
+      id: '2',
+      name: '测试账号',
+      email: 'test@example.com',
+      avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=test',
+      role: 'user',
+      token: 'mock-token-2',
     },
   ];
 
@@ -285,11 +283,11 @@ export async function checkAuth(): Promise<boolean> {
 
   // Mock user fetch - replace with actual API call
   const mockUser: AccountWithToken = {
-    id: "1",
-    name: "演示用户",
-    email: "demo@example.com",
-    avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=demo",
-    role: "admin",
+    id: '1',
+    name: '演示用户',
+    email: 'demo@example.com',
+    avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=demo',
+    role: 'admin',
     token,
   };
 

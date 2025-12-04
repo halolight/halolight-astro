@@ -89,7 +89,7 @@
    =========================== */
 
 /* Blue Skin */
-:root[data-skin="blue"] {
+:root[data-skin='blue'] {
   --primary: 221.2 83.2% 53.3%;
   --primary-foreground: 210 40% 98%;
   --accent: 210 40% 96.1%;
@@ -105,7 +105,7 @@
   --sidebar-ring: 221.2 83.2% 53.3%;
 }
 
-.dark[data-skin="blue"] {
+.dark[data-skin='blue'] {
   --primary: 217.2 91.2% 59.8%;
   --primary-foreground: 222.2 47.4% 11.2%;
   --accent: 217.2 32.6% 17.5%;
@@ -122,7 +122,7 @@
 }
 
 /* Emerald Skin */
-:root[data-skin="emerald"] {
+:root[data-skin='emerald'] {
   --primary: 142.1 76.2% 36.3%;
   --primary-foreground: 355.7 100% 97.3%;
   --accent: 210 40% 96.1%;
@@ -138,7 +138,7 @@
   --sidebar-ring: 142.1 76.2% 36.3%;
 }
 
-.dark[data-skin="emerald"] {
+.dark[data-skin='emerald'] {
   --primary: 160.1 84.1% 39.4%;
   --primary-foreground: 355.7 100% 97.3%;
   --accent: 217.2 32.6% 17.5%;
@@ -155,7 +155,7 @@
 }
 
 /* Amber Skin */
-:root[data-skin="amber"] {
+:root[data-skin='amber'] {
   --primary: 32.1 94.6% 43.7%;
   --primary-foreground: 26 83.3% 14.1%;
   --accent: 210 40% 96.1%;
@@ -171,7 +171,7 @@
   --sidebar-ring: 32.1 94.6% 43.7%;
 }
 
-.dark[data-skin="amber"] {
+.dark[data-skin='amber'] {
   --primary: 47.9 95.8% 53.1%;
   --primary-foreground: 26 83.3% 14.1%;
   --accent: 217.2 32.6% 17.5%;
@@ -188,7 +188,7 @@
 }
 
 /* Violet Skin */
-:root[data-skin="violet"] {
+:root[data-skin='violet'] {
   --primary: 262.1 83.3% 57.8%;
   --primary-foreground: 210 40% 98%;
   --accent: 210 40% 96.1%;
@@ -204,7 +204,7 @@
   --sidebar-ring: 262.1 83.3% 57.8%;
 }
 
-.dark[data-skin="violet"] {
+.dark[data-skin='violet'] {
   --primary: 263.4 70% 50.4%;
   --primary-foreground: 210 40% 98%;
   --accent: 217.2 32.6% 17.5%;
@@ -221,7 +221,7 @@
 }
 
 /* Rose Skin */
-:root[data-skin="rose"] {
+:root[data-skin='rose'] {
   --primary: 346.8 77.2% 49.8%;
   --primary-foreground: 355.7 100% 97.3%;
   --accent: 210 40% 96.1%;
@@ -237,7 +237,7 @@
   --sidebar-ring: 346.8 77.2% 49.8%;
 }
 
-.dark[data-skin="rose"] {
+.dark[data-skin='rose'] {
   --primary: 346.8 77.2% 49.8%;
   --primary-foreground: 355.7 100% 97.3%;
   --accent: 217.2 32.6% 17.5%;
@@ -254,7 +254,7 @@
 }
 
 /* Teal Skin */
-:root[data-skin="teal"] {
+:root[data-skin='teal'] {
   --primary: 173 80% 40%;
   --primary-foreground: 355.7 100% 97.3%;
   --accent: 210 40% 96.1%;
@@ -270,7 +270,7 @@
   --sidebar-ring: 173 80% 40%;
 }
 
-.dark[data-skin="teal"] {
+.dark[data-skin='teal'] {
   --primary: 172.5 66% 50.4%;
   --primary-foreground: 355.7 100% 97.3%;
   --accent: 217.2 32.6% 17.5%;
@@ -287,7 +287,7 @@
 }
 
 /* Slate Skin */
-:root[data-skin="slate"] {
+:root[data-skin='slate'] {
   --primary: 215.4 16.3% 46.9%;
   --primary-foreground: 210 40% 98%;
   --accent: 210 40% 96.1%;
@@ -303,7 +303,7 @@
   --sidebar-ring: 215.4 16.3% 46.9%;
 }
 
-.dark[data-skin="slate"] {
+.dark[data-skin='slate'] {
   --primary: 215 20.2% 65.1%;
   --primary-foreground: 210 40% 98%;
   --accent: 217.2 32.6% 17.5%;
@@ -320,7 +320,7 @@
 }
 
 /* Ocean Skin */
-:root[data-skin="ocean"] {
+:root[data-skin='ocean'] {
   --primary: 199 89% 48%;
   --primary-foreground: 210 40% 98%;
   --accent: 189 75% 75%;
@@ -336,7 +336,7 @@
   --sidebar-ring: 199 89% 48%;
 }
 
-.dark[data-skin="ocean"] {
+.dark[data-skin='ocean'] {
   --primary: 189 85% 55%;
   --primary-foreground: 199 89% 15%;
   --accent: 199 89% 25%;
@@ -353,7 +353,7 @@
 }
 
 /* Sunset Skin */
-:root[data-skin="sunset"] {
+:root[data-skin='sunset'] {
   --primary: 14 90% 53%;
   --primary-foreground: 0 0% 100%;
   --accent: 25 95% 70%;
@@ -369,7 +369,7 @@
   --sidebar-ring: 14 90% 53%;
 }
 
-.dark[data-skin="sunset"] {
+.dark[data-skin='sunset'] {
   --primary: 25 95% 60%;
   --primary-foreground: 14 90% 15%;
   --accent: 14 90% 25%;
@@ -386,7 +386,7 @@
 }
 
 /* Aurora Skin */
-:root[data-skin="aurora"] {
+:root[data-skin='aurora'] {
   --primary: 158 64% 52%;
   --primary-foreground: 0 0% 100%;
   --accent: 280 65% 75%;
@@ -402,7 +402,7 @@
   --sidebar-ring: 158 64% 52%;
 }
 
-.dark[data-skin="aurora"] {
+.dark[data-skin='aurora'] {
   --primary: 158 64% 52%;
   --primary-foreground: 158 64% 15%;
   --accent: 280 65% 30%;

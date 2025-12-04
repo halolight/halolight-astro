@@ -9,6 +9,7 @@ This document details the newly implemented features to achieve UI consistency w
 **Location**: `/src/styles/globals.css`
 
 **Presets Available**:
+
 - Default (classic black & white)
 - Blue (professional tech feel)
 - Emerald (fresh & natural)
@@ -22,14 +23,16 @@ This document details the newly implemented features to achieve UI consistency w
 - Aurora (dreamy & colorful)
 
 **Usage**:
+
 ```javascript
 import { applySkin } from './lib/ui-settings';
 
 // Apply a skin preset
-applySkin('blue');  // Changes the entire UI color scheme
+applySkin('blue'); // Changes the entire UI color scheme
 ```
 
 **How it works**:
+
 - CSS variables are defined for each skin in `globals.css`
 - The `data-skin` attribute on `<html>` controls which skin is active
 - Supports both light and dark modes for each skin
@@ -41,6 +44,7 @@ applySkin('blue');  // Changes the entire UI color scheme
 **Store**: `/src/lib/tabs-store.ts`
 
 **Features**:
+
 - Automatic tab creation when navigating to new pages
 - Close tabs with X button (except home tab)
 - Click tabs to navigate
@@ -49,6 +53,7 @@ applySkin('blue');  // Changes the entire UI color scheme
 - Visual indicator for active tab
 
 **Usage**:
+
 ```javascript
 import { addTab, removeTab, setActiveTab } from './lib/tabs-store';
 
@@ -56,7 +61,7 @@ import { addTab, removeTab, setActiveTab } from './lib/tabs-store';
 addTab({
   title: 'Users Page',
   path: '/dashboard/users',
-  closable: true
+  closable: true,
 });
 
 // Remove a tab
@@ -67,6 +72,7 @@ setActiveTab('tab-id');
 ```
 
 **Integration**:
+
 - Automatically integrated into `DashboardLayout.astro`
 - Tabs are created automatically when visiting new pages
 - Tab bar visibility controlled by UI settings
@@ -76,6 +82,7 @@ setActiveTab('tab-id');
 **Store**: `/src/lib/auth-store.ts`
 
 **Features**:
+
 - Store multiple authenticated accounts
 - Switch between accounts without re-login
 - Persist account tokens and user info
@@ -83,6 +90,7 @@ setActiveTab('tab-id');
 - Mock implementation ready for API integration
 
 **Usage**:
+
 ```javascript
 import { switchAccount, getAccounts } from './lib/auth-store';
 
@@ -97,6 +105,7 @@ await login({ email, password, remember: true });
 ```
 
 **How it works**:
+
 - Accounts stored in localStorage with Zustand-compatible format
 - Active account token stored in cookie
 - Page refresh loads correct account from storage
@@ -107,6 +116,7 @@ await login({ email, password, remember: true });
 **Library**: `/src/lib/page-cache.ts`
 
 **Features**:
+
 - Scroll position restoration
 - Form data auto-save and restore
 - Custom state caching per page
@@ -116,6 +126,7 @@ await login({ email, password, remember: true });
 **Usage**:
 
 **Scroll Restoration**:
+
 ```javascript
 import { restoreScroll } from './lib/page-cache';
 
@@ -124,6 +135,7 @@ restoreScroll(window.location.pathname);
 ```
 
 **Form Caching**:
+
 ```javascript
 import { saveFormCache, getFormCache } from './lib/page-cache';
 
@@ -135,6 +147,7 @@ const cached = getFormCache('/dashboard/profile', 'profile-form');
 ```
 
 **Custom State**:
+
 ```javascript
 import { saveStateCache, getStateCache } from './lib/page-cache';
 
@@ -146,6 +159,7 @@ const filter = getStateCache('/dashboard', 'filter');
 ```
 
 **Integration**:
+
 - Scroll restoration enabled in `DashboardLayout.astro`
 - Works automatically on all dashboard pages
 - No configuration needed
@@ -157,18 +171,21 @@ const filter = getStateCache('/dashboard', 'filter');
 **5 Widgets Implemented**:
 
 #### a) ChartBarWidget.astro
+
 - Displays bar chart for sales/comparison data
 - Canvas-based rendering (no external dependencies)
 - Responsive sizing
 - Uses CSS variable colors for theming
 
 #### b) ChartPieWidget.astro
+
 - Displays pie chart for distribution data
 - Interactive legend
 - Percentage calculations
 - Theme-aware colors
 
 #### c) RecentUsersWidget.astro
+
 - Shows recently registered users
 - Avatar images
 - Role badges
@@ -176,6 +193,7 @@ const filter = getStateCache('/dashboard', 'filter');
 - Quick stats (e.g., "Today's new users")
 
 #### d) TasksWidget.astro
+
 - Displays pending tasks with checkboxes
 - Priority indicators (high/medium/low)
 - Due date display
@@ -183,6 +201,7 @@ const filter = getStateCache('/dashboard', 'filter');
 - Delete task functionality
 
 #### e) CalendarWidget.astro
+
 - Mini calendar with current date
 - Today's events list
 - Event types (meeting, deadline, reminder)
@@ -190,6 +209,7 @@ const filter = getStateCache('/dashboard', 'filter');
 - Empty state for no events
 
 **Usage in Pages**:
+
 ```astro
 ---
 import ChartBarWidget from '../../components/dashboard/widgets/ChartBarWidget.astro';
@@ -211,6 +231,7 @@ import CalendarWidget from '../../components/dashboard/widgets/CalendarWidget.as
 **Library**: `/src/lib/ui-settings.ts`
 
 **Features**:
+
 - Centralized UI preferences management
 - Skin preset control
 - UI element visibility toggles
@@ -218,6 +239,7 @@ import CalendarWidget from '../../components/dashboard/widgets/CalendarWidget.as
 - Zustand-compatible format for easy migration
 
 **Settings Available**:
+
 - `skin`: Current skin preset
 - `showFooter`: Footer visibility
 - `showTabBar`: Tab bar visibility
@@ -225,13 +247,9 @@ import CalendarWidget from '../../components/dashboard/widgets/CalendarWidget.as
 - `mobileTabBarFixed`: Mobile tab bar fixed position
 
 **Usage**:
+
 ```javascript
-import {
-  loadUiSettings,
-  saveUiSettings,
-  applySkin,
-  resetUiSettings
-} from './lib/ui-settings';
+import { loadUiSettings, saveUiSettings, applySkin, resetUiSettings } from './lib/ui-settings';
 
 // Load current settings
 const settings = loadUiSettings();
@@ -303,6 +321,7 @@ The `DashboardLayout.astro` now includes:
 ## Browser Support
 
 All features use standard Web APIs:
+
 - **localStorage**: For persistent settings
 - **sessionStorage**: For page caching
 - **Cookies**: For auth tokens
@@ -310,6 +329,7 @@ All features use standard Web APIs:
 - **CSS Variables**: For theming
 
 **Minimum Requirements**:
+
 - Modern browsers (Chrome 90+, Firefox 88+, Safari 14+, Edge 90+)
 - JavaScript enabled
 - Cookies enabled (for authentication)
@@ -325,6 +345,7 @@ All features use standard Web APIs:
 ## Migration from Next.js
 
 All stores use **Zustand-compatible persist format**:
+
 ```json
 {
   "state": { ...actualState },

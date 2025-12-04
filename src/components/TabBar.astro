@@ -3,7 +3,7 @@
  * TabBar Component
  * Multi-tab navigation bar with closable tabs
  */
-import type { Tab as _Tab } from "../lib/tabs-store";
+import type { Tab as _Tab } from '../lib/tabs-store';
 
 interface Props {
   class?: string;
@@ -15,10 +15,10 @@ const { class: className } = Astro.props;
 <div
   id="tab-bar"
   class:list={[
-    "sticky top-16 z-20 border-b border-gray-200 dark:border-gray-700",
-    "bg-white/80 dark:bg-gray-900/80 backdrop-blur-sm",
-    "transition-all duration-300",
-    "hidden",
+    'sticky top-16 z-20 border-b border-gray-200 dark:border-gray-700',
+    'bg-white/80 dark:bg-gray-900/80 backdrop-blur-sm',
+    'transition-all duration-300',
+    'hidden',
     className,
   ]}
 >
@@ -29,26 +29,21 @@ const { class: className } = Astro.props;
 </div>
 
 <script>
-  import {
-    loadTabsState,
-    removeTab,
-    setActiveTab,
-    type Tab,
-  } from "../lib/tabs-store";
-  import { loadUiSettings } from "../lib/ui-settings";
+  import { loadTabsState, removeTab, setActiveTab, type Tab } from '../lib/tabs-store';
+  import { loadUiSettings } from '../lib/ui-settings';
 
   function renderTabs() {
-    const tabBar = document.getElementById("tab-bar");
-    const container = document.getElementById("tabs-container");
+    const tabBar = document.getElementById('tab-bar');
+    const container = document.getElementById('tabs-container');
     if (!tabBar || !container) return;
 
     // Check if tab bar should be visible
     const settings = loadUiSettings();
     if (!settings.showTabBar) {
-      tabBar.classList.add("hidden");
+      tabBar.classList.add('hidden');
       return;
     } else {
-      tabBar.classList.remove("hidden");
+      tabBar.classList.remove('hidden');
     }
 
     // Load tabs state
@@ -57,32 +52,32 @@ const { class: className } = Astro.props;
     const activeId = state.activeTabId;
 
     // Clear container
-    container.innerHTML = "";
+    container.innerHTML = '';
 
     // Render each tab
     tabs.forEach((tab: Tab) => {
-      const tabElement = document.createElement("button");
+      const tabElement = document.createElement('button');
       tabElement.className = `
         flex items-center gap-2 px-3 py-1.5 rounded-md text-sm
         transition-colors duration-200
         ${
           tab.id === activeId
-            ? "bg-primary-50 text-primary-700 dark:bg-primary-900/30 dark:text-primary-300"
-            : "text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800"
+            ? 'bg-primary-50 text-primary-700 dark:bg-primary-900/30 dark:text-primary-300'
+            : 'text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800'
         }
       `.trim();
 
       // Tab title
-      const titleSpan = document.createElement("span");
+      const titleSpan = document.createElement('span');
       titleSpan.textContent = tab.title || tab.path;
-      titleSpan.className = "whitespace-nowrap";
+      titleSpan.className = 'whitespace-nowrap';
       tabElement.appendChild(titleSpan);
 
       // Close button (if closable)
       if (tab.closable !== false) {
-        const closeBtn = document.createElement("button");
+        const closeBtn = document.createElement('button');
         closeBtn.className =
-          "ml-1 hover:bg-gray-200 dark:hover:bg-gray-700 rounded p-0.5 transition-colors";
+          'ml-1 hover:bg-gray-200 dark:hover:bg-gray-700 rounded p-0.5 transition-colors';
         closeBtn.innerHTML = `
           <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <line x1="18" y1="6" x2="6" y2="18"></line>
@@ -99,9 +94,7 @@ const { class: className } = Astro.props;
           // Navigate to active tab if current tab was closed
           if (tab.id === activeId) {
             const updatedState = loadTabsState();
-            const newActiveTab = updatedState.tabs.find(
-              (t) => t.id === updatedState.activeTabId
-            );
+            const newActiveTab = updatedState.tabs.find((t) => t.id === updatedState.activeTabId);
             if (newActiveTab) {
               window.location.href = newActiveTab.path;
             }
@@ -124,8 +117,8 @@ const { class: className } = Astro.props;
   renderTabs();
 
   // Re-render on storage change (for cross-tab sync)
-  window.addEventListener("storage", (e) => {
-    if (e.key === "tabs-storage" || e.key === "ui-settings-storage") {
+  window.addEventListener('storage', (e) => {
+    if (e.key === 'tabs-storage' || e.key === 'ui-settings-storage') {
       renderTabs();
     }
   });

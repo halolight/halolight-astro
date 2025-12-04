@@ -3,7 +3,7 @@
  * Manages multi-tab navigation with localStorage persistence
  */
 
-const STORAGE_KEY = "tabs-storage";
+const STORAGE_KEY = 'tabs-storage';
 
 export interface Tab {
   id: string;
@@ -19,22 +19,22 @@ interface TabsState {
 }
 
 const homeTab: Tab = {
-  id: "home",
-  title: "首页",
-  path: "/dashboard",
+  id: 'home',
+  title: '首页',
+  path: '/dashboard',
   closable: false,
 };
 
 const defaultState: TabsState = {
   tabs: [homeTab],
-  activeTabId: "home",
+  activeTabId: 'home',
 };
 
 /**
  * Load tabs state from localStorage
  */
 export function loadTabsState(): TabsState {
-  if (typeof localStorage === "undefined") {
+  if (typeof localStorage === 'undefined') {
     return defaultState;
   }
 
@@ -50,7 +50,7 @@ export function loadTabsState(): TabsState {
       activeTabId: parsed.state?.activeTabId || defaultState.activeTabId,
     };
   } catch (error) {
-    console.error("Failed to load tabs state:", error);
+    console.error('Failed to load tabs state:', error);
     return defaultState;
   }
 }
@@ -59,7 +59,7 @@ export function loadTabsState(): TabsState {
  * Save tabs state to localStorage
  */
 export function saveTabsState(state: Partial<TabsState>): void {
-  if (typeof localStorage === "undefined") {
+  if (typeof localStorage === 'undefined') {
     return;
   }
 
@@ -78,14 +78,14 @@ export function saveTabsState(state: Partial<TabsState>): void {
 
     localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
   } catch (error) {
-    console.error("Failed to save tabs state:", error);
+    console.error('Failed to save tabs state:', error);
   }
 }
 
 /**
  * Add a new tab or activate existing one
  */
-export function addTab(tab: Omit<Tab, "id">): string {
+export function addTab(tab: Omit<Tab, 'id'>): string {
   const state = loadTabsState();
 
   // Check if tab with same path already exists
@@ -154,9 +154,7 @@ export function setActiveTab(id: string): void {
  */
 export function updateTab(id: string, updates: Partial<Tab>): void {
   const state = loadTabsState();
-  const updatedTabs = state.tabs.map((t) =>
-    t.id === id ? { ...t, ...updates } : t
-  );
+  const updatedTabs = state.tabs.map((t) => (t.id === id ? { ...t, ...updates } : t));
   saveTabsState({ tabs: updatedTabs });
 }
 
@@ -166,7 +164,7 @@ export function updateTab(id: string, updates: Partial<Tab>): void {
 export function clearTabs(): void {
   saveTabsState({
     tabs: [homeTab],
-    activeTabId: "home",
+    activeTabId: 'home',
   });
 }
 
