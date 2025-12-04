@@ -220,7 +220,7 @@ export function enableFormAutoSave(
   // Restore form data on mount
   const cached = getFormCache(path, formKey);
   if (cached) {
-    const formData = new FormData(formElement);
+    const _formData = new FormData(formElement);
     Object.entries(cached).forEach(([key, value]) => {
       const input = formElement.elements.namedItem(key) as
         | HTMLInputElement
