@@ -7,7 +7,7 @@ import type { APIRoute } from 'astro';
 const mockUsers = [
   {
     id: 1,
-    email: 'admin@example.com',
+    email: 'admin@halolight.h7ml.cn',
     password: '123456',
     name: '管理员',
     role: 'admin',

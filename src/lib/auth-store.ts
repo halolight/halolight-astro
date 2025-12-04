@@ -218,7 +218,7 @@ export async function loadAccounts(): Promise<void> {
     {
       id: "1",
       name: "主账号",
-      email: "admin@example.com",
+      email: "admin@halolight.h7ml.cn",
       avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=admin",
       role: "admin",
       token: "mock-token-1",

@@ -80,7 +80,7 @@ const currentPath = Astro.url.pathname;
   // Make UI settings functions globally available for quick settings
   (window as any).uiSettings = {
     loadSettings: loadUiSettings,
-    applySkin: (skin: string) => {
+    applySkin: async (skin: string) => {
       const { applySkin } = await import('../lib/ui-settings');
       applySkin(skin as any);
       window.location.reload(); // Reload to apply skin

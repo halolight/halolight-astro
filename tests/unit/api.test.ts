@@ -5,7 +5,7 @@ import { describe, it, expect } from 'vitest';
 
 // 模拟用户数据
 const mockUsers = [
-  { id: 1, email: 'admin@example.com', password: '123456', name: '管理员', role: 'admin' },
+  { id: 1, email: 'admin@halolight.h7ml.cn', password: '123456', name: '管理员', role: 'admin' },
   { id: 2, email: 'admin@halolight.h7ml.cn', password: '123456', name: '管理员', role: 'admin' },
   { id: 3, email: 'user@example.com', password: '123456', name: '普通用户', role: 'user' },
 ];
@@ -32,11 +32,11 @@ function validateLogin(email: string, password: string) {
 }
 
 describe('登录 API', () => {
-  it('应该成功登录有效用户 - admin@example.com', () => {
-    const result = validateLogin('admin@example.com', '123456');
+  it('应该成功登录有效用户 - admin@halolight.h7ml.cn', () => {
+    const result = validateLogin('admin@halolight.h7ml.cn', '123456');
     expect(result.success).toBe(true);
     expect(result.status).toBe(200);
-    expect(result.user?.email).toBe('admin@example.com');
+    expect(result.user?.email).toBe('admin@halolight.h7ml.cn');
     expect(result.user?.role).toBe('admin');
   });
 
@@ -48,7 +48,7 @@ describe('登录 API', () => {
   });
 
   it('应该拒绝错误密码', () => {
-    const result = validateLogin('admin@example.com', 'wrongpassword');
+    const result = validateLogin('admin@halolight.h7ml.cn', 'wrongpassword');
     expect(result.success).toBe(false);
     expect(result.status).toBe(401);
     expect(result.message).toBe('邮箱或密码错误');
@@ -68,13 +68,13 @@ describe('登录 API', () => {
   });
 
   it('应该拒绝空密码', () => {
-    const result = validateLogin('admin@example.com', '');
+    const result = validateLogin('admin@halolight.h7ml.cn', '');
     expect(result.success).toBe(false);
     expect(result.status).toBe(400);
   });
 
   it('不应在响应中返回密码', () => {
-    const result = validateLogin('admin@example.com', '123456');
+    const result = validateLogin('admin@halolight.h7ml.cn', '123456');
     expect(result.success).toBe(true);
     expect(result.user).not.toHaveProperty('password');
   });
