@@ -1,0 +1,154 @@
+---
+/**
+ * 文件管理页面
+ */
+import DashboardLayout from '../../layouts/DashboardLayout.astro';
+
+const files = [
+  { id: 1, name: '项目截图.png', type: 'image', size: '2.4 MB', updated: '2024-01-15' },
+  { id: 2, name: '产品视频.mp4', type: 'video', size: '156 MB', updated: '2024-01-14' },
+  { id: 3, name: '数据备份.zip', type: 'archive', size: '89 MB', updated: '2024-01-13' },
+  { id: 4, name: '用户手册.pdf', type: 'pdf', size: '4.2 MB', updated: '2024-01-12' },
+  { id: 5, name: '配置文件.json', type: 'code', size: '12 KB', updated: '2024-01-11' },
+];
+
+const folders = [
+  { id: 1, name: '项目文件', count: 24, updated: '2024-01-15' },
+  { id: 2, name: '设计资源', count: 156, updated: '2024-01-14' },
+  { id: 3, name: '归档文件', count: 89, updated: '2024-01-10' },
+];
+
+const typeColors: Record<string, string> = {
+  image: 'bg-purple-100 dark:bg-purple-900/20 text-purple-600 dark:text-purple-400',
+  video: 'bg-pink-100 dark:bg-pink-900/20 text-pink-600 dark:text-pink-400',
+  archive: 'bg-yellow-100 dark:bg-yellow-900/20 text-yellow-600 dark:text-yellow-400',
+  pdf: 'bg-red-100 dark:bg-red-900/20 text-red-600 dark:text-red-400',
+  code: 'bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-400',
+};
+---
+
+<DashboardLayout title="文件">
+  <div class="space-y-6">
+    <div class="flex items-center justify-between">
+      <div>
+        <h2 class="text-2xl font-bold text-gray-900 dark:text-white">文件管理</h2>
+        <p class="mt-1 text-gray-600 dark:text-gray-400">管理和组织您的文件</p>
+      </div>
+      <div class="flex gap-3">
+        <button class="btn-outline">新建文件夹</button>
+        <button class="btn-primary">上传文件</button>
+      </div>
+    </div>
+
+    <!-- 文件夹 -->
+    <div>
+      <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-4">文件夹</h3>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        {
+          folders.map((folder) => (
+            <div class="card p-4 hover:shadow-md transition-shadow cursor-pointer">
+              <div class="flex items-center gap-3">
+                <div class="w-12 h-12 rounded-lg bg-blue-100 dark:bg-blue-900/20 flex items-center justify-center">
+                  <svg
+                    class="w-6 h-6 text-blue-600 dark:text-blue-400"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z"
+                    />
+                  </svg>
+                </div>
+                <div class="flex-1 min-w-0">
+                  <p class="font-medium text-gray-900 dark:text-white truncate">{folder.name}</p>
+                  <p class="text-sm text-gray-500 dark:text-gray-400">{folder.count} 个文件</p>
+                </div>
+              </div>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+
+    <!-- 最近文件 -->
+    <div>
+      <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-4">最近文件</h3>
+      <div class="card overflow-hidden">
+        <div class="overflow-x-auto">
+          <table class="w-full">
+            <thead class="bg-gray-50 dark:bg-gray-800/50">
+              <tr>
+                <th
+                  class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase"
+                  >文件名</th
+                >
+                <th
+                  class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase"
+                  >大小</th
+                >
+                <th
+                  class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase"
+                  >修改时间</th
+                >
+                <th
+                  class="px-6 py-3 text-right text-xs font-medium text-gray-500 dark:text-gray-400 uppercase"
+                  >操作</th
+                >
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-gray-200 dark:divide-gray-700">
+              {
+                files.map((file) => (
+                  <tr class="hover:bg-gray-50 dark:hover:bg-gray-800/50">
+                    <td class="px-6 py-4 whitespace-nowrap">
+                      <div class="flex items-center gap-3">
+                        <div
+                          class={`w-10 h-10 rounded-lg flex items-center justify-center ${typeColors[file.type]}`}
+                        >
+                          <svg
+                            class="w-5 h-5"
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24"
+                          >
+                            <path
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                              stroke-width="2"
+                              d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"
+                            />
+                          </svg>
+                        </div>
+                        <span class="text-sm font-medium text-gray-900 dark:text-white">
+                          {file.name}
+                        </span>
+                      </div>
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">
+                      {file.size}
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">
+                      {file.updated}
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap text-right space-x-2">
+                      <button class="text-primary-600 hover:text-primary-700 dark:text-primary-400 text-sm font-medium">
+                        下载
+                      </button>
+                      <button class="text-red-600 hover:text-red-700 dark:text-red-400 text-sm font-medium">
+                        删除
+                      </button>
+                    </td>
+                  </tr>
+                ))
+              }
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</DashboardLayout>

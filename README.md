@@ -1,46 +1,82 @@
-# Astro Starter Kit: Basics
+# Halolight Astro | Admin Pro
 
-```sh
-pnpm create astro@latest -- --template basics
+[![License](https://img.shields.io/badge/license-MIT-green.svg)](https://github.com/halolight/halolight-astro/blob/main/LICENSE)
+[![Astro](https://img.shields.io/badge/Astro-5-%23BC52EE.svg)](https://astro.build/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.9-%233178C6.svg)](https://www.typescriptlang.org/)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind%20CSS-4-%2306B6D4.svg)](https://tailwindcss.com/)
+
+基于 Astro 5 的现代化中文后台管理系统，具备 Islands 架构、零 JS 首屏和极致性能。
+
+- 在线预览：<https://halolight-astro.h7ml.cn>
+- GitHub：<https://github.com/halolight/halolight-astro>
+
+## 功能亮点
+
+- **Islands 架构**：默认零 JS，按需水合交互组件
+- **多框架支持**：可在同一项目中使用 React、Vue、Svelte
+- **内容优先**：静态优先，极致性能
+- **TypeScript**：完整类型安全支持
+- **Tailwind CSS**：原子化样式
+- **客户端指令**：`client:load`、`client:visible`、`client:idle`
+
+## 目录结构
+
+```
+├── astro.config.mjs  # Astro 配置
+├── src/
+│   ├── pages/        # 文件路由
+│   │   └── api/      # API 端点
+│   ├── layouts/      # 布局组件
+│   ├── components/   # UI 组件
+│   └── styles/       # 全局样式
+└── public/           # 静态资源
 ```
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+## 快速开始
 
-## 🚀 Project Structure
-
-Inside of your Astro project, you'll see the following folders and files:
-
-```text
-/
-├── public/
-│   └── favicon.svg
-├── src
-│   ├── assets
-│   │   └── astro.svg
-│   ├── components
-│   │   └── Welcome.astro
-│   ├── layouts
-│   │   └── Layout.astro
-│   └── pages
-│       └── index.astro
-└── package.json
+```bash
+pnpm install
+pnpm dev         # 开发模式
+pnpm build       # 生产构建
+pnpm preview     # 预览构建产物
+pnpm astro add   # 添加集成
 ```
 
-To learn more about the folder structure of an Astro project, refer to [our guide on project structure](https://docs.astro.build/en/basics/project-structure/).
+## 技术栈
 
-## 🧞 Commands
+| 类别     | 技术         |
+| -------- | ------------ |
+| 核心框架 | Astro 5      |
+| 类型系统 | TypeScript   |
+| 构建工具 | Vite (内置)  |
+| 样式     | Tailwind CSS |
 
-All commands are run from the root of the project, from a terminal:
+## Islands 架构
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `pnpm install`             | Installs dependencies                            |
-| `pnpm dev`             | Starts local dev server at `localhost:4321`      |
-| `pnpm build`           | Build your production site to `./dist/`          |
-| `pnpm preview`         | Preview your build locally, before deploying     |
-| `pnpm astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `pnpm astro -- --help` | Get help using the Astro CLI                     |
+```astro
+---
+import Counter from '../components/Counter.tsx';
+---
 
-## 👀 Want to learn more?
+<!-- 静态 HTML，无 JS -->
+<h1>Welcome</h1>
 
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+<!-- 页面加载时水合 -->
+<Counter client:load />
+
+<!-- 可见时水合 -->
+<Counter client:visible />
+```
+
+## 客户端指令
+
+| 指令             | 行为               |
+| ---------------- | ------------------ |
+| `client:load`    | 页面加载后立即水合 |
+| `client:idle`    | 浏览器空闲时水合   |
+| `client:visible` | 元素可见时水合     |
+| `client:only`    | 仅客户端渲染       |
+
+## 许可证
+
+[MIT](LICENSE)

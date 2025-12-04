@@ -1,0 +1,63 @@
+---
+/**
+ * 法律页面布局
+ */
+import Layout from './Layout.astro';
+
+interface Props {
+  title: string;
+}
+
+const { title } = Astro.props;
+const brandName = import.meta.env.PUBLIC_BRAND_NAME || 'Halolight';
+---
+
+<Layout title={title}>
+  <div class="min-h-screen bg-gray-50 dark:bg-gray-900">
+    <!-- 顶部导航 -->
+    <header class="bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700">
+      <div class="max-w-4xl mx-auto px-4 py-4 flex items-center justify-between">
+        <a href="/" class="flex items-center gap-2">
+          <div class="w-8 h-8 rounded-lg bg-primary-600 flex items-center justify-center">
+            <svg class="w-5 h-5 text-white" viewBox="0 0 24 24" fill="none">
+              <path d="M12 4L20 20H4L12 4Z" stroke="currentColor" stroke-width="2"></path>
+            </svg>
+          </div>
+          <span class="font-bold text-gray-900 dark:text-white">{brandName}</span>
+        </a>
+        <nav class="flex items-center gap-4">
+          <a
+            href="/auth/login"
+            class="text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white"
+            >登录</a
+          >
+          <a href="/auth/register" class="btn-primary text-sm">注册</a>
+        </nav>
+      </div>
+    </header>
+
+    <!-- 内容区域 -->
+    <main class="max-w-4xl mx-auto px-4 py-12">
+      <article class="prose prose-gray dark:prose-invert max-w-none">
+        <slot />
+      </article>
+    </main>
+
+    <!-- 页脚 -->
+    <footer class="bg-white dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700">
+      <div class="max-w-4xl mx-auto px-4 py-8 text-center text-sm text-gray-600 dark:text-gray-400">
+        <p>© 2024 {brandName}. 保留所有权利。</p>
+        <nav class="mt-4 flex items-center justify-center gap-4">
+          <a
+            href="https://halolight.docs.h7ml.cn"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="hover:text-gray-900 dark:hover:text-white">在线文档</a
+          >
+          <a href="/privacy" class="hover:text-gray-900 dark:hover:text-white">隐私政策</a>
+          <a href="/terms" class="hover:text-gray-900 dark:hover:text-white">服务条款</a>
+        </nav>
+      </div>
+    </footer>
+  </div>
+</Layout>

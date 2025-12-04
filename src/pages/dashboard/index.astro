@@ -1,0 +1,277 @@
+---
+/**
+ * 仪表盘首页
+ */
+import DashboardLayout from '../../layouts/DashboardLayout.astro';
+
+// 统计卡片数据
+const stats = [
+  {
+    label: '总用户数',
+    value: '12,345',
+    change: '+12%',
+    changeType: 'increase',
+    icon: 'users',
+  },
+  {
+    label: '活跃用户',
+    value: '8,901',
+    change: '+8%',
+    changeType: 'increase',
+    icon: 'activity',
+  },
+  {
+    label: '总收入',
+    value: '¥234,567',
+    change: '+23%',
+    changeType: 'increase',
+    icon: 'revenue',
+  },
+  {
+    label: '订单数',
+    value: '1,234',
+    change: '-3%',
+    changeType: 'decrease',
+    icon: 'orders',
+  },
+];
+
+// 最近活动
+const recentActivities = [
+  { user: '张三', action: '创建了新订单', time: '5 分钟前', type: 'order' },
+  { user: '李四', action: '更新了个人资料', time: '10 分钟前', type: 'profile' },
+  { user: '王五', action: '完成了付款', time: '15 分钟前', type: 'payment' },
+  { user: '赵六', action: '提交了工单', time: '30 分钟前', type: 'ticket' },
+  { user: '孙七', action: '注册了账号', time: '1 小时前', type: 'register' },
+];
+
+// 图标映射
+const iconPaths: Record<string, string> = {
+  users: `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"/>`,
+  activity: `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/>`,
+  revenue: `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>`,
+  orders: `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/>`,
+};
+---
+
+<DashboardLayout title="仪表盘">
+  <div class="space-y-6">
+    <!-- 欢迎信息 -->
+    <div class="flex items-center justify-between">
+      <div>
+        <h2 class="text-2xl font-bold text-gray-900 dark:text-white">欢迎回来，管理员</h2>
+        <p class="mt-1 text-gray-600 dark:text-gray-400">这是您的仪表盘概览</p>
+      </div>
+      <div class="flex gap-3">
+        <button class="btn-outline">导出报告</button>
+        <button class="btn-primary">新建项目</button>
+      </div>
+    </div>
+
+    <!-- 统计卡片 -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      {
+        stats.map((stat) => (
+          <div class="card p-6">
+            <div class="flex items-center justify-between">
+              <div
+                class={`w-12 h-12 rounded-lg flex items-center justify-center ${
+                  stat.changeType === 'increase'
+                    ? 'bg-green-100 dark:bg-green-900/20'
+                    : 'bg-red-100 dark:bg-red-900/20'
+                }`}
+              >
+                <svg
+                  class={`w-6 h-6 ${
+                    stat.changeType === 'increase'
+                      ? 'text-green-600 dark:text-green-400'
+                      : 'text-red-600 dark:text-red-400'
+                  }`}
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  set:html={iconPaths[stat.icon]}
+                />
+              </div>
+              <span
+                class={`text-sm font-medium ${
+                  stat.changeType === 'increase'
+                    ? 'text-green-600 dark:text-green-400'
+                    : 'text-red-600 dark:text-red-400'
+                }`}
+              >
+                {stat.change}
+              </span>
+            </div>
+            <div class="mt-4">
+              <p class="text-2xl font-bold text-gray-900 dark:text-white">{stat.value}</p>
+              <p class="text-sm text-gray-600 dark:text-gray-400">{stat.label}</p>
+            </div>
+          </div>
+        ))
+      }
+    </div>
+
+    <!-- 图表和活动区域 -->
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+      <!-- 图表占位 -->
+      <div class="lg:col-span-2 card p-6">
+        <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-4">收入趋势</h3>
+        <div
+          class="h-64 flex items-center justify-center bg-gray-100 dark:bg-gray-700/50 rounded-lg"
+        >
+          <div class="text-center text-gray-500 dark:text-gray-400">
+            <svg
+              class="w-12 h-12 mx-auto mb-2"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"
+              ></path>
+            </svg>
+            <p>图表组件待集成</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 最近活动 -->
+      <div class="card p-6">
+        <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-4">最近活动</h3>
+        <div class="space-y-4">
+          {
+            recentActivities.map((activity) => (
+              <div class="flex items-start gap-3">
+                <div class="w-8 h-8 rounded-full bg-primary-100 dark:bg-primary-900/30 flex items-center justify-center flex-shrink-0">
+                  <span class="text-xs font-medium text-primary-700 dark:text-primary-400">
+                    {activity.user.charAt(0)}
+                  </span>
+                </div>
+                <div class="flex-1 min-w-0">
+                  <p class="text-sm text-gray-900 dark:text-white">
+                    <span class="font-medium">{activity.user}</span>
+                    <span class="text-gray-600 dark:text-gray-400"> {activity.action}</span>
+                  </p>
+                  <p class="text-xs text-gray-500 dark:text-gray-500">{activity.time}</p>
+                </div>
+              </div>
+            ))
+          }
+        </div>
+        <a
+          href="/dashboard/notifications"
+          class="mt-4 block text-center text-sm text-primary-600 hover:text-primary-700 dark:text-primary-400"
+        >
+          查看全部
+        </a>
+      </div>
+    </div>
+
+    <!-- 快捷操作 -->
+    <div class="card p-6">
+      <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-4">快捷操作</h3>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <a
+          href="/dashboard/users"
+          class="flex flex-col items-center p-4 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors"
+        >
+          <div
+            class="w-12 h-12 rounded-lg bg-blue-100 dark:bg-blue-900/20 flex items-center justify-center mb-2"
+          >
+            <svg
+              class="w-6 h-6 text-blue-600 dark:text-blue-400"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"
+              ></path>
+            </svg>
+          </div>
+          <span class="text-sm font-medium text-gray-700 dark:text-gray-300">添加用户</span>
+        </a>
+        <a
+          href="/dashboard/documents"
+          class="flex flex-col items-center p-4 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors"
+        >
+          <div
+            class="w-12 h-12 rounded-lg bg-green-100 dark:bg-green-900/20 flex items-center justify-center mb-2"
+          >
+            <svg
+              class="w-6 h-6 text-green-600 dark:text-green-400"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M9 13h6m-3-3v6m5 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+              ></path>
+            </svg>
+          </div>
+          <span class="text-sm font-medium text-gray-700 dark:text-gray-300">新建文档</span>
+        </a>
+        <a
+          href="/dashboard/files"
+          class="flex flex-col items-center p-4 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors"
+        >
+          <div
+            class="w-12 h-12 rounded-lg bg-purple-100 dark:bg-purple-900/20 flex items-center justify-center mb-2"
+          >
+            <svg
+              class="w-6 h-6 text-purple-600 dark:text-purple-400"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"></path>
+            </svg>
+          </div>
+          <span class="text-sm font-medium text-gray-700 dark:text-gray-300">上传文件</span>
+        </a>
+        <a
+          href="/dashboard/settings"
+          class="flex flex-col items-center p-4 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors"
+        >
+          <div
+            class="w-12 h-12 rounded-lg bg-orange-100 dark:bg-orange-900/20 flex items-center justify-center mb-2"
+          >
+            <svg
+              class="w-6 h-6 text-orange-600 dark:text-orange-400"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"
+              ></path>
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+            </svg>
+          </div>
+          <span class="text-sm font-medium text-gray-700 dark:text-gray-300">系统设置</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</DashboardLayout>

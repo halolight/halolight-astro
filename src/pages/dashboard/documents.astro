@@ -1,0 +1,140 @@
+---
+/**
+ * 文档管理页面
+ */
+import DashboardLayout from '../../layouts/DashboardLayout.astro';
+
+const documents = [
+  {
+    id: 1,
+    name: '项目需求文档',
+    type: 'doc',
+    size: '2.4 MB',
+    updated: '2024-01-15',
+    author: '张三',
+  },
+  {
+    id: 2,
+    name: '技术方案设计',
+    type: 'doc',
+    size: '1.8 MB',
+    updated: '2024-01-14',
+    author: '李四',
+  },
+  {
+    id: 3,
+    name: '财务报表 Q4',
+    type: 'xlsx',
+    size: '856 KB',
+    updated: '2024-01-13',
+    author: '王五',
+  },
+  {
+    id: 4,
+    name: '产品演示文稿',
+    type: 'pptx',
+    size: '12.3 MB',
+    updated: '2024-01-12',
+    author: '赵六',
+  },
+  {
+    id: 5,
+    name: '会议纪要',
+    type: 'doc',
+    size: '124 KB',
+    updated: '2024-01-11',
+    author: '孙七',
+  },
+];
+
+const typeIcons: Record<string, string> = {
+  doc: 'bg-blue-100 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400',
+  xlsx: 'bg-green-100 dark:bg-green-900/20 text-green-600 dark:text-green-400',
+  pptx: 'bg-orange-100 dark:bg-orange-900/20 text-orange-600 dark:text-orange-400',
+  pdf: 'bg-red-100 dark:bg-red-900/20 text-red-600 dark:text-red-400',
+};
+---
+
+<DashboardLayout title="文档">
+  <div class="space-y-6">
+    <div class="flex items-center justify-between">
+      <div>
+        <h2 class="text-2xl font-bold text-gray-900 dark:text-white">文档管理</h2>
+        <p class="mt-1 text-gray-600 dark:text-gray-400">管理和协作团队文档</p>
+      </div>
+      <button class="btn-primary">新建文档</button>
+    </div>
+
+    <div class="card overflow-hidden">
+      <div class="overflow-x-auto">
+        <table class="w-full">
+          <thead class="bg-gray-50 dark:bg-gray-800/50">
+            <tr>
+              <th
+                class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase"
+                >文档名称</th
+              >
+              <th
+                class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase"
+                >大小</th
+              >
+              <th
+                class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase"
+                >更新时间</th
+              >
+              <th
+                class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase"
+                >作者</th
+              >
+              <th
+                class="px-6 py-3 text-right text-xs font-medium text-gray-500 dark:text-gray-400 uppercase"
+                >操作</th
+              >
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-gray-200 dark:divide-gray-700">
+            {
+              documents.map((doc) => (
+                <tr class="hover:bg-gray-50 dark:hover:bg-gray-800/50">
+                  <td class="px-6 py-4 whitespace-nowrap">
+                    <div class="flex items-center gap-3">
+                      <div
+                        class={`w-10 h-10 rounded-lg flex items-center justify-center ${typeIcons[doc.type]}`}
+                      >
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+                          />
+                        </svg>
+                      </div>
+                      <span class="text-sm font-medium text-gray-900 dark:text-white">
+                        {doc.name}
+                      </span>
+                    </div>
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">
+                    {doc.size}
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">
+                    {doc.updated}
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">
+                    {doc.author}
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap text-right">
+                    <button class="text-primary-600 hover:text-primary-700 dark:text-primary-400 text-sm font-medium">
+                      下载
+                    </button>
+                  </td>
+                </tr>
+              ))
+            }
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</DashboardLayout>

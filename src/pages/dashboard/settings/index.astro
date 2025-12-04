@@ -1,0 +1,236 @@
+---
+/**
+ * 设置页面
+ */
+import DashboardLayout from '../../../layouts/DashboardLayout.astro';
+---
+
+<DashboardLayout title="设置">
+  <div class="space-y-6">
+    <div>
+      <h2 class="text-2xl font-bold text-gray-900 dark:text-white">系统设置</h2>
+      <p class="mt-1 text-gray-600 dark:text-gray-400">管理系统配置和偏好设置</p>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-4 gap-6">
+      <!-- 左侧导航 -->
+      <nav class="card p-4 h-fit">
+        <ul class="space-y-1">
+          <li>
+            <a
+              href="#general"
+              class="block px-3 py-2 rounded-lg bg-primary-50 text-primary-700 dark:bg-primary-900/20 dark:text-primary-400 font-medium"
+              >常规设置</a
+            >
+          </li>
+          <li>
+            <a
+              href="#security"
+              class="block px-3 py-2 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700/50"
+              >安全设置</a
+            >
+          </li>
+          <li>
+            <a
+              href="#notifications"
+              class="block px-3 py-2 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700/50"
+              >通知设置</a
+            >
+          </li>
+          <li>
+            <a
+              href="#appearance"
+              class="block px-3 py-2 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700/50"
+              >外观设置</a
+            >
+          </li>
+          <li>
+            <a
+              href="/dashboard/settings/teams"
+              class="block px-3 py-2 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700/50"
+              >团队管理</a
+            >
+          </li>
+        </ul>
+      </nav>
+
+      <!-- 右侧设置内容 -->
+      <div class="lg:col-span-3 space-y-6">
+        <!-- 常规设置 -->
+        <div id="general" class="card p-6">
+          <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-4">常规设置</h3>
+          <div class="space-y-4">
+            <div>
+              <label for="siteName" class="label">站点名称</label>
+              <input type="text" id="siteName" class="input" value="Admin Pro" />
+            </div>
+            <div>
+              <label for="siteUrl" class="label">站点 URL</label>
+              <input type="url" id="siteUrl" class="input" value="https://example.com" />
+            </div>
+            <div>
+              <label for="language" class="label">语言</label>
+              <select id="language" class="input">
+                <option value="zh-CN" selected>简体中文</option>
+                <option value="en-US">English</option>
+                <option value="ja-JP">日本語</option>
+              </select>
+            </div>
+            <div>
+              <label for="timezone" class="label">时区</label>
+              <select id="timezone" class="input">
+                <option value="Asia/Shanghai" selected>Asia/Shanghai (UTC+8)</option>
+                <option value="America/New_York">America/New_York (UTC-5)</option>
+                <option value="Europe/London">Europe/London (UTC+0)</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <!-- 安全设置 -->
+        <div id="security" class="card p-6">
+          <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-4">安全设置</h3>
+          <div class="space-y-4">
+            <div
+              class="flex items-center justify-between py-3 border-b border-gray-200 dark:border-gray-700"
+            >
+              <div>
+                <p class="font-medium text-gray-900 dark:text-white">双因素认证</p>
+                <p class="text-sm text-gray-500 dark:text-gray-400">为账户添加额外的安全保护</p>
+              </div>
+              <button class="btn-outline">启用</button>
+            </div>
+            <div
+              class="flex items-center justify-between py-3 border-b border-gray-200 dark:border-gray-700"
+            >
+              <div>
+                <p class="font-medium text-gray-900 dark:text-white">登录通知</p>
+                <p class="text-sm text-gray-500 dark:text-gray-400">新设备登录时发送邮件通知</p>
+              </div>
+              <label class="relative inline-flex items-center cursor-pointer">
+                <input type="checkbox" class="sr-only peer" checked />
+                <div
+                  class="w-11 h-6 bg-gray-200 peer-focus:ring-4 peer-focus:ring-primary-300 dark:peer-focus:ring-primary-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary-600"
+                >
+                </div>
+              </label>
+            </div>
+            <div class="flex items-center justify-between py-3">
+              <div>
+                <p class="font-medium text-gray-900 dark:text-white">会话超时</p>
+                <p class="text-sm text-gray-500 dark:text-gray-400">设置自动登出时间</p>
+              </div>
+              <select class="input w-auto">
+                <option value="30">30 分钟</option>
+                <option value="60" selected>1 小时</option>
+                <option value="240">4 小时</option>
+                <option value="480">8 小时</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <!-- 外观设置 -->
+        <div id="appearance" class="card p-6">
+          <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-4">外观设置</h3>
+          <div class="space-y-4">
+            <div>
+              <label class="label">主题模式</label>
+              <div class="grid grid-cols-3 gap-4 mt-2">
+                <button
+                  id="theme-light"
+                  class="p-4 border-2 rounded-lg text-center hover:border-primary-500 transition-colors"
+                >
+                  <svg
+                    class="w-6 h-6 mx-auto mb-2 text-gray-600"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"
+                    ></path>
+                  </svg>
+                  <span class="text-sm font-medium text-gray-700 dark:text-gray-300">浅色</span>
+                </button>
+                <button
+                  id="theme-dark"
+                  class="p-4 border-2 rounded-lg text-center hover:border-primary-500 transition-colors"
+                >
+                  <svg
+                    class="w-6 h-6 mx-auto mb-2 text-gray-600"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"
+                    ></path>
+                  </svg>
+                  <span class="text-sm font-medium text-gray-700 dark:text-gray-300">深色</span>
+                </button>
+                <button
+                  id="theme-system"
+                  class="p-4 border-2 rounded-lg text-center hover:border-primary-500 transition-colors"
+                >
+                  <svg
+                    class="w-6 h-6 mx-auto mb-2 text-gray-600"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+                    ></path>
+                  </svg>
+                  <span class="text-sm font-medium text-gray-700 dark:text-gray-300">跟随系统</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="flex justify-end gap-3">
+          <button class="btn-outline">重置</button>
+          <button class="btn-primary">保存更改</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</DashboardLayout>
+
+<script>
+  const lightBtn = document.getElementById('theme-light');
+  const darkBtn = document.getElementById('theme-dark');
+  const systemBtn = document.getElementById('theme-system');
+
+  function setTheme(theme: string) {
+    if (theme === 'dark') {
+      document.documentElement.classList.add('dark');
+      localStorage.setItem('theme', 'dark');
+    } else if (theme === 'light') {
+      document.documentElement.classList.remove('dark');
+      localStorage.setItem('theme', 'light');
+    } else {
+      localStorage.removeItem('theme');
+      if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.documentElement.classList.add('dark');
+      } else {
+        document.documentElement.classList.remove('dark');
+      }
+    }
+  }
+
+  lightBtn?.addEventListener('click', () => setTheme('light'));
+  darkBtn?.addEventListener('click', () => setTheme('dark'));
+  systemBtn?.addEventListener('click', () => setTheme('system'));
+</script>

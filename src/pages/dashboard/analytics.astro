@@ -1,0 +1,185 @@
+---
+/**
+ * 分析页面
+ */
+import DashboardLayout from '../../layouts/DashboardLayout.astro';
+
+// 分析数据
+const metrics = [
+  { label: '页面浏览量', value: '45,678', change: '+15%', period: '较上周' },
+  { label: '独立访客', value: '12,345', change: '+8%', period: '较上周' },
+  { label: '平均会话时长', value: '4:32', change: '+12%', period: '较上周' },
+  { label: '跳出率', value: '32%', change: '-5%', period: '较上周' },
+];
+
+const topPages = [
+  { path: '/dashboard', views: 8234, percentage: 28 },
+  { path: '/dashboard/users', views: 5621, percentage: 19 },
+  { path: '/dashboard/analytics', views: 4532, percentage: 15 },
+  { path: '/dashboard/documents', views: 3421, percentage: 12 },
+  { path: '/dashboard/settings', views: 2876, percentage: 10 },
+];
+
+const topCountries = [
+  { name: '中国', users: 8234, flag: '🇨🇳' },
+  { name: '美国', users: 2341, flag: '🇺🇸' },
+  { name: '日本', users: 1234, flag: '🇯🇵' },
+  { name: '韩国', users: 987, flag: '🇰🇷' },
+  { name: '新加坡', users: 543, flag: '🇸🇬' },
+];
+---
+
+<DashboardLayout title="分析">
+  <div class="space-y-6">
+    <!-- 页面标题 -->
+    <div class="flex items-center justify-between">
+      <div>
+        <h2 class="text-2xl font-bold text-gray-900 dark:text-white">数据分析</h2>
+        <p class="mt-1 text-gray-600 dark:text-gray-400">查看网站流量和用户行为分析</p>
+      </div>
+      <div class="flex gap-2">
+        <select class="input py-2 px-3 w-auto">
+          <option>最近 7 天</option>
+          <option>最近 30 天</option>
+          <option>最近 90 天</option>
+          <option>今年</option>
+        </select>
+        <button class="btn-primary">导出数据</button>
+      </div>
+    </div>
+
+    <!-- 指标卡片 -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      {
+        metrics.map((metric) => (
+          <div class="card p-6">
+            <p class="text-sm text-gray-600 dark:text-gray-400">{metric.label}</p>
+            <p class="mt-2 text-3xl font-bold text-gray-900 dark:text-white">{metric.value}</p>
+            <p class="mt-2 text-sm">
+              <span
+                class={
+                  metric.change.startsWith('+')
+                    ? 'text-green-600 dark:text-green-400'
+                    : 'text-red-600 dark:text-red-400'
+                }
+              >
+                {metric.change}
+              </span>
+              <span class="text-gray-500 dark:text-gray-500"> {metric.period}</span>
+            </p>
+          </div>
+        ))
+      }
+    </div>
+
+    <!-- 图表区域 -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <!-- 访问趋势图表 -->
+      <div class="card p-6">
+        <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-4">访问趋势</h3>
+        <div
+          class="h-64 flex items-center justify-center bg-gray-100 dark:bg-gray-700/50 rounded-lg"
+        >
+          <div class="text-center text-gray-500 dark:text-gray-400">
+            <svg
+              class="w-12 h-12 mx-auto mb-2"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M7 12l3-3 3 3 4-4M8 21l4-4 4 4M3 4h18M4 4h16v12a1 1 0 01-1 1H5a1 1 0 01-1-1V4z"
+              ></path>
+            </svg>
+            <p>折线图待集成</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 设备分布图表 -->
+      <div class="card p-6">
+        <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-4">设备分布</h3>
+        <div
+          class="h-64 flex items-center justify-center bg-gray-100 dark:bg-gray-700/50 rounded-lg"
+        >
+          <div class="text-center text-gray-500 dark:text-gray-400">
+            <svg
+              class="w-12 h-12 mx-auto mb-2"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M11 3.055A9.001 9.001 0 1020.945 13H11V3.055z"></path>
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M20.488 9H15V3.512A9.025 9.025 0 0120.488 9z"></path>
+            </svg>
+            <p>饼图待集成</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 数据表格 -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <!-- 热门页面 -->
+      <div class="card p-6">
+        <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-4">热门页面</h3>
+        <div class="space-y-4">
+          {
+            topPages.map((page) => (
+              <div class="flex items-center gap-4">
+                <div class="flex-1 min-w-0">
+                  <p class="text-sm font-medium text-gray-900 dark:text-white truncate">
+                    {page.path}
+                  </p>
+                  <div class="mt-1 w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
+                    <div
+                      class="bg-primary-600 h-2 rounded-full"
+                      style={`width: ${page.percentage}%`}
+                    />
+                  </div>
+                </div>
+                <div class="text-right">
+                  <p class="text-sm font-medium text-gray-900 dark:text-white">
+                    {page.views.toLocaleString()}
+                  </p>
+                  <p class="text-xs text-gray-500 dark:text-gray-400">{page.percentage}%</p>
+                </div>
+              </div>
+            ))
+          }
+        </div>
+      </div>
+
+      <!-- 用户地区分布 -->
+      <div class="card p-6">
+        <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-4">用户地区分布</h3>
+        <div class="space-y-4">
+          {
+            topCountries.map((country) => (
+              <div class="flex items-center gap-4">
+                <span class="text-2xl">{country.flag}</span>
+                <div class="flex-1">
+                  <p class="text-sm font-medium text-gray-900 dark:text-white">{country.name}</p>
+                </div>
+                <p class="text-sm font-medium text-gray-900 dark:text-white">
+                  {country.users.toLocaleString()} 用户
+                </p>
+              </div>
+            ))
+          }
+        </div>
+      </div>
+    </div>
+  </div>
+</DashboardLayout>

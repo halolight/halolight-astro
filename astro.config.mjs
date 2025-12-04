@@ -1,5 +1,26 @@
 // @ts-check
 import { defineConfig } from 'astro/config';
+import tailwind from '@astrojs/tailwind';
+
+// 动态导入适配器
+const DEPLOY_TARGET = process.env.DEPLOY_TARGET || 'cloudflare';
+
+let adapter;
+if (DEPLOY_TARGET === 'vercel') {
+  const vercel = (await import('@astrojs/vercel')).default;
+  adapter = vercel();
+} else {
+  const cloudflare = (await import('@astrojs/cloudflare')).default;
+  adapter = cloudflare();
+}
 
 // https://astro.build/config
-export default defineConfig({});
+export default defineConfig({
+  integrations: [tailwind()],
+  output: 'server',
+  adapter,
+  server: {
+    port: 4321,
+    host: true,
+  },
+});
