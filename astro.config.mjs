@@ -24,4 +24,16 @@ export default defineConfig({
     port: 4321,
     host: true,
   },
+  // Vite 配置 - API 代理
+  vite: {
+    server: {
+      proxy: {
+        '/api': {
+          target: process.env.VITE_API_BACKEND_URL || 'http://localhost:3000',
+          changeOrigin: true,
+          secure: false,
+        },
+      },
+    },
+  },
 });
