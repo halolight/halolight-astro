@@ -1,0 +1,214 @@
+---
+/**
+ * Tasks Widget
+ * Displays list of pending tasks with checkbox
+ *
+ * Features:
+ * - Interactive task completion
+ * - Priority levels (high/medium/low)
+ * - Progress tracking
+ * - Due date display
+ * - Delete functionality
+ */
+interface Task {
+  id: string;
+  title: string;
+  completed: boolean;
+  priority: 'high' | 'medium' | 'low';
+  dueDate: string;
+}
+
+interface Props {
+  title?: string;
+  class?: string;
+}
+
+const { title = '待办任务', class: className } = Astro.props;
+
+// Mock tasks data - In production, fetch from API
+const tasks: Task[] = [
+  {
+    id: '1',
+    title: '完成项目文档',
+    completed: false,
+    priority: 'high',
+    dueDate: '今天',
+  },
+  {
+    id: '2',
+    title: '代码审查',
+    completed: true,
+    priority: 'medium',
+    dueDate: '今天',
+  },
+  {
+    id: '3',
+    title: '团队周会',
+    completed: false,
+    priority: 'high',
+    dueDate: '明天',
+  },
+  {
+    id: '4',
+    title: '优化数据库查询',
+    completed: false,
+    priority: 'medium',
+    dueDate: '本周',
+  },
+  {
+    id: '5',
+    title: '更新依赖包',
+    completed: false,
+    priority: 'low',
+    dueDate: '下周',
+  },
+];
+
+const priorityColors: Record<Task['priority'], string> = {
+  high: 'text-red-600 dark:text-red-400',
+  medium: 'text-yellow-600 dark:text-yellow-400',
+  low: 'text-green-600 dark:text-green-400',
+};
+
+const priorityLabels: Record<Task['priority'], string> = {
+  high: '高',
+  medium: '中',
+  low: '低',
+};
+
+const completedCount = tasks.filter((t) => t.completed).length;
+const totalCount = tasks.length;
+const completionPercentage = totalCount > 0 ? (completedCount / totalCount) * 100 : 0;
+---
+
+<div class:list={['card p-6', className]}>
+  <div class="flex items-center justify-between mb-4">
+    <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
+      {title}
+    </h3>
+    <button
+      class="text-sm text-primary-600 hover:text-primary-700 dark:text-primary-400 dark:hover:text-primary-300"
+    >
+      添加任务
+    </button>
+  </div>
+
+  <div class="space-y-2">
+    {
+      tasks.map((task) => (
+        <div class="task-item flex items-start gap-3 p-2 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors group">
+          <input
+            type="checkbox"
+            checked={task.completed}
+            class="mt-1 w-4 h-4 text-primary-600 border-gray-300 rounded focus:ring-primary-500 dark:border-gray-600 dark:bg-gray-700 cursor-pointer"
+            data-task-id={task.id}
+          />
+          <div class="flex-1 min-w-0">
+            <p
+              class:list={[
+                'task-title text-sm font-medium',
+                task.completed
+                  ? 'line-through text-gray-400 dark:text-gray-500'
+                  : 'text-gray-900 dark:text-white',
+              ]}
+            >
+              {task.title}
+            </p>
+            <div class="flex items-center gap-2 mt-1">
+              <span class:list={['text-xs font-medium', priorityColors[task.priority]]}>
+                {priorityLabels[task.priority]}
+                优先级
+              </span>
+              <span class="text-xs text-gray-500 dark:text-gray-400">• {task.dueDate}</span>
+            </div>
+          </div>
+          <button
+            class="delete-task-btn opacity-0 group-hover:opacity-100 transition-opacity text-gray-400 hover:text-red-600 dark:hover:text-red-400"
+            aria-label="删除任务"
+            type="button"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="M3 6h18" />
+              <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6" />
+              <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2" />
+            </svg>
+          </button>
+        </div>
+      ))
+    }
+  </div>
+
+  <div class="mt-4 pt-4 border-t border-gray-200 dark:border-gray-700">
+    <div class="flex items-center justify-between text-sm">
+      <span class="text-gray-500 dark:text-gray-400">
+        {completedCount} / {totalCount} 已完成
+      </span>
+      <div class="w-32 bg-gray-200 dark:bg-gray-700 rounded-full h-2">
+        <div
+          class="bg-primary-600 h-2 rounded-full transition-all duration-300"
+          style={`width: ${completionPercentage}%`}
+        >
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Handle task checkbox changes
+  document.addEventListener('DOMContentLoaded', () => {
+    const checkboxes = document.querySelectorAll('input[type="checkbox"][data-task-id]');
+
+    checkboxes.forEach((checkbox) => {
+      checkbox.addEventListener('change', (e) => {
+        const target = e.target as HTMLInputElement;
+        const taskId = target.dataset.taskId;
+        const isCompleted = target.checked;
+
+        // Update task text style
+        const taskElement = target.closest('.task-item');
+        const taskTitle = taskElement?.querySelector('.task-title');
+        if (taskTitle) {
+          if (isCompleted) {
+            taskTitle.classList.add('line-through', 'text-gray-400', 'dark:text-gray-500');
+            taskTitle.classList.remove('text-gray-900', 'dark:text-white');
+          } else {
+            taskTitle.classList.remove('line-through', 'text-gray-400', 'dark:text-gray-500');
+            taskTitle.classList.add('text-gray-900', 'dark:text-white');
+          }
+        }
+
+        console.log(`Task ${taskId} completed:`, isCompleted);
+        // TODO: Persist task state to localStorage or API
+        // Example: localStorage.setItem(`task_${taskId}_completed`, String(isCompleted));
+      });
+    });
+
+    // Handle delete buttons
+    const deleteButtons = document.querySelectorAll('.delete-task-btn');
+    deleteButtons.forEach((button) => {
+      button.addEventListener('click', (e) => {
+        const taskElement = (e.target as HTMLElement).closest('.task-item');
+        const taskId = taskElement
+          ?.querySelector('input[type="checkbox"]')
+          ?.getAttribute('data-task-id');
+
+        if (confirm('确定要删除这个任务吗？')) {
+          taskElement?.remove();
+          console.log(`Task ${taskId} deleted`);
+          // TODO: Persist deletion to API
+        }
+      });
+    });
+  });
+</script>

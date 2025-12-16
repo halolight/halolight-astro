@@ -1,0 +1,90 @@
+---
+/**
+ * Chart Bar Widget
+ * Displays bar chart for sales/comparison data
+ */
+interface Props {
+  title?: string;
+  class?: string;
+}
+
+const { title = '柱状图', class: className } = Astro.props;
+---
+
+<div class:list={['card p-6', className]}>
+  <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-4">
+    {title}
+  </h3>
+
+  <div id="chart-bar-widget" class="h-64">
+    <canvas id="bar-chart-canvas"></canvas>
+  </div>
+</div>
+
+<script>
+  // Mock data for bar chart
+  const data = {
+    labels: ['一月', '二月', '三月', '四月', '五月', '六月'],
+    datasets: [
+      {
+        label: '销售额',
+        data: [12000, 19000, 15000, 25000, 22000, 30000],
+        backgroundColor: 'hsl(var(--chart-1) / 0.8)',
+        borderColor: 'hsl(var(--chart-1))',
+        borderWidth: 2,
+      },
+    ],
+  };
+
+  // Simple bar chart implementation without external libraries
+  function renderBarChart() {
+    const canvas = document.getElementById('bar-chart-canvas') as HTMLCanvasElement;
+    if (!canvas) return;
+
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+
+    // Set canvas size
+    canvas.width = canvas.offsetWidth;
+    canvas.height = canvas.offsetHeight;
+
+    const padding = 40;
+    const barWidth = (canvas.width - padding * 2) / data.labels.length - 10;
+    const maxValue = Math.max(...data.datasets[0].data);
+
+    // Clear canvas
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    // Draw bars
+    data.datasets[0].data.forEach((value, index) => {
+      const barHeight = (value / maxValue) * (canvas.height - padding * 2);
+      const x = padding + index * (barWidth + 10);
+      const y = canvas.height - padding - barHeight;
+
+      // Get computed color
+      const color = getComputedStyle(document.documentElement).getPropertyValue('--chart-1').trim();
+
+      ctx.fillStyle = `hsl(${color} / 0.8)`;
+      ctx.fillRect(x, y, barWidth, barHeight);
+
+      // Draw labels
+      ctx.fillStyle = '#666';
+      ctx.font = '12px sans-serif';
+      ctx.textAlign = 'center';
+      ctx.fillText(data.labels[index], x + barWidth / 2, canvas.height - padding + 20);
+
+      // Draw values
+      ctx.fillText(value.toLocaleString(), x + barWidth / 2, y - 10);
+    });
+  }
+
+  // Render on load
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', renderBarChart);
+  } else {
+    renderBarChart();
+  }
+
+  // Re-render on window resize
+  window.addEventListener('resize', renderBarChart);
+</script>

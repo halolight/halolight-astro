@@ -1,0 +1,132 @@
+---
+/**
+ * 通知页面
+ */
+import DashboardLayout from '../../layouts/DashboardLayout.astro';
+
+const notifications = [
+  {
+    id: 1,
+    type: 'info',
+    title: '系统更新',
+    message: '系统将于今晚 22:00 进行维护升级，预计持续 2 小时。',
+    time: '5 分钟前',
+    read: false,
+  },
+  {
+    id: 2,
+    type: 'success',
+    title: '付款成功',
+    message: '您的订单 #12345 已成功付款，金额 ¥299.00。',
+    time: '1 小时前',
+    read: false,
+  },
+  {
+    id: 3,
+    type: 'warning',
+    title: '存储空间不足',
+    message: '您的存储空间已使用 90%，请及时清理或升级。',
+    time: '2 小时前',
+    read: false,
+  },
+  {
+    id: 4,
+    type: 'info',
+    title: '新消息',
+    message: '张三向您发送了一条消息，点击查看详情。',
+    time: '3 小时前',
+    read: true,
+  },
+  {
+    id: 5,
+    type: 'success',
+    title: '任务完成',
+    message: '项目「后台管理系统」已标记为完成。',
+    time: '昨天',
+    read: true,
+  },
+  {
+    id: 6,
+    type: 'error',
+    title: '登录异常',
+    message: '检测到您的账户在异地登录，请确认是否为本人操作。',
+    time: '2 天前',
+    read: true,
+  },
+];
+
+const typeConfig: Record<string, { bg: string; icon: string; color: string }> = {
+  info: {
+    bg: 'bg-blue-100 dark:bg-blue-900/20',
+    color: 'text-blue-600 dark:text-blue-400',
+    icon: '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>',
+  },
+  success: {
+    bg: 'bg-green-100 dark:bg-green-900/20',
+    color: 'text-green-600 dark:text-green-400',
+    icon: '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>',
+  },
+  warning: {
+    bg: 'bg-yellow-100 dark:bg-yellow-900/20',
+    color: 'text-yellow-600 dark:text-yellow-400',
+    icon: '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>',
+  },
+  error: {
+    bg: 'bg-red-100 dark:bg-red-900/20',
+    color: 'text-red-600 dark:text-red-400',
+    icon: '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"/>',
+  },
+};
+---
+
+<DashboardLayout title="通知">
+  <div class="space-y-6">
+    <div class="flex items-center justify-between">
+      <div>
+        <h2 class="text-2xl font-bold text-gray-900 dark:text-white">通知中心</h2>
+        <p class="mt-1 text-gray-600 dark:text-gray-400">查看系统通知和提醒</p>
+      </div>
+      <button class="btn-outline">全部标为已读</button>
+    </div>
+
+    <div class="card overflow-hidden">
+      <div class="divide-y divide-gray-200 dark:divide-gray-700">
+        {
+          notifications.map((notif) => (
+            <div
+              class={`p-4 hover:bg-gray-50 dark:hover:bg-gray-800/50 ${!notif.read ? 'bg-blue-50/30 dark:bg-blue-900/5' : ''}`}
+            >
+              <div class="flex items-start gap-4">
+                <div
+                  class={`w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 ${typeConfig[notif.type].bg}`}
+                >
+                  <svg
+                    class={`w-5 h-5 ${typeConfig[notif.type].color}`}
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                    set:html={typeConfig[notif.type].icon}
+                  />
+                </div>
+                <div class="flex-1 min-w-0">
+                  <div class="flex items-center justify-between mb-1">
+                    <p
+                      class={`text-sm ${!notif.read ? 'font-semibold text-gray-900 dark:text-white' : 'font-medium text-gray-700 dark:text-gray-300'}`}
+                    >
+                      {notif.title}
+                    </p>
+                    <span class="text-xs text-gray-500 dark:text-gray-400">{notif.time}</span>
+                  </div>
+                  <p class="text-sm text-gray-600 dark:text-gray-400">{notif.message}</p>
+                </div>
+                {!notif.read && (
+                  <div class="w-2 h-2 bg-primary-600 rounded-full flex-shrink-0 mt-2" />
+                )}
+              </div>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </div>
+</DashboardLayout>

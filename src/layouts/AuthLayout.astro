@@ -1,0 +1,102 @@
+---
+/**
+ * 认证页面布局
+ * 用于登录、注册、忘记密码、重置密码等页面
+ * 参考 Next.js auth-shell.tsx 实现
+ */
+import Layout from './Layout.astro';
+
+interface Props {
+  title: string;
+  description?: string;
+  /** 是否展示左侧装饰区；某些简单页可以关闭 */
+  showLeft?: boolean;
+}
+
+const { title, description, showLeft = true } = Astro.props;
+const _brandName = import.meta.env.PUBLIC_BRAND_NAME || 'Halolight';
+---
+
+<Layout title={title} description={description}>
+  <div
+    class="relative min-h-screen lg:h-dvh overflow-hidden bg-gradient-to-br from-slate-50 via-blue-50/30 to-indigo-50/50 dark:from-slate-950 dark:via-slate-900 dark:to-slate-950"
+  >
+    <!-- 背景网格 -->
+    <div
+      class="absolute inset-0 bg-[linear-gradient(to_right,#8080800a_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-[size:24px_24px]"
+    >
+    </div>
+
+    <!-- 背景光晕 -->
+    <div class="absolute inset-0 pointer-events-none overflow-hidden">
+      <!-- 光晕 1 - 左上 -->
+      <div
+        class="absolute -top-40 -left-40 w-96 h-96 rounded-full blur-3xl bg-gradient-to-br from-blue-400/30 to-cyan-400/30 animate-pulse-scale"
+      >
+      </div>
+      <!-- 光晕 2 - 右中 -->
+      <div
+        class="absolute top-1/3 -right-32 w-80 h-80 rounded-full blur-3xl bg-gradient-to-br from-indigo-400/30 to-purple-400/30 animate-pulse-scale-alt"
+      >
+      </div>
+      <!-- 光晕 3 - 左下 -->
+      <div
+        class="absolute -bottom-32 left-1/4 w-96 h-96 rounded-full blur-3xl bg-gradient-to-br from-violet-400/20 to-pink-400/20 animate-pulse-scale-slow"
+      >
+      </div>
+    </div>
+
+    <!-- 主体内容 -->
+    <div class="relative flex min-h-screen lg:h-full flex-col lg:flex-row">
+      <!-- 左侧装饰区域 -->
+      {
+        showLeft && (
+          <div class="hidden lg:flex lg:w-1/2 relative overflow-hidden animate-slide-in-left">
+            {/* 渐变背景 */}
+            <div class="absolute inset-0 bg-gradient-to-br from-blue-600 via-indigo-600 to-violet-700" />
+
+            {/* 网格覆盖 */}
+            <div class="absolute inset-0 bg-[linear-gradient(to_right,#ffffff0a_1px,transparent_1px),linear-gradient(to_bottom,#ffffff0a_1px,transparent_1px)] bg-[size:32px_32px]" />
+
+            {/* 内容区域 */}
+            <div class="relative z-10 flex flex-col justify-center px-12 xl:px-16 text-white">
+              <slot name="left" />
+            </div>
+
+            {/* 浮动小点 */}
+            <div
+              class="absolute w-2 h-2 rounded-full bg-white/20 animate-float float-delay-0"
+              style="left: 20%; top: 30%;"
+            />
+            <div
+              class="absolute w-2 h-2 rounded-full bg-white/20 animate-float float-delay-1"
+              style="left: 35%; top: 50%;"
+            />
+            <div
+              class="absolute w-2 h-2 rounded-full bg-white/20 animate-float float-delay-2"
+              style="left: 50%; top: 30%;"
+            />
+            <div
+              class="absolute w-2 h-2 rounded-full bg-white/20 animate-float float-delay-3"
+              style="left: 65%; top: 50%;"
+            />
+            <div
+              class="absolute w-2 h-2 rounded-full bg-white/20 animate-float float-delay-4"
+              style="left: 80%; top: 30%;"
+            />
+            <div
+              class="absolute w-2 h-2 rounded-full bg-white/20 animate-float float-delay-5"
+              style="left: 95%; top: 50%;"
+            />
+          </div>
+        )
+      }
+
+      <!-- 右侧表单区域 -->
+      <div class="flex-1 flex items-center justify-center p-3 sm:p-4 lg:px-10 lg:py-6">
+        <slot name="right" />
+        <slot />
+      </div>
+    </div>
+  </div>
+</Layout>

@@ -1,0 +1,103 @@
+---
+/**
+ * Chart Pie Widget
+ * Displays pie chart for distribution data
+ */
+interface Props {
+  title?: string;
+  class?: string;
+}
+
+const { title = '饼图', class: className } = Astro.props;
+---
+
+<div class:list={['card p-6', className]}>
+  <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-4">
+    {title}
+  </h3>
+
+  <div id="chart-pie-widget" class="h-64 flex items-center justify-center">
+    <canvas id="pie-chart-canvas" width="250" height="250"></canvas>
+  </div>
+
+  <div id="pie-legend" class="mt-4 grid grid-cols-2 gap-2 text-sm"></div>
+</div>
+
+<script>
+  // Mock data for pie chart
+  const data = {
+    labels: ['桌面端', '移动端', '平板', '其他'],
+    datasets: [
+      {
+        data: [45, 30, 15, 10],
+        backgroundColor: [
+          'hsl(var(--chart-1))',
+          'hsl(var(--chart-2))',
+          'hsl(var(--chart-3))',
+          'hsl(var(--chart-4))',
+        ],
+      },
+    ],
+  };
+
+  function renderPieChart() {
+    const canvas = document.getElementById('pie-chart-canvas') as HTMLCanvasElement;
+    const legend = document.getElementById('pie-legend');
+    if (!canvas || !legend) return;
+
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+
+    const centerX = canvas.width / 2;
+    const centerY = canvas.height / 2;
+    const radius = Math.min(centerX, centerY) - 10;
+
+    const total = data.datasets[0].data.reduce((a, b) => a + b, 0);
+    let currentAngle = -Math.PI / 2;
+
+    // Clear canvas
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    // Clear legend
+    legend.innerHTML = '';
+
+    // Draw pie slices
+    data.datasets[0].data.forEach((value, index) => {
+      const sliceAngle = (value / total) * 2 * Math.PI;
+
+      // Get computed color
+      const colorVar = `--chart-${index + 1}`;
+      const color = getComputedStyle(document.documentElement).getPropertyValue(colorVar).trim();
+
+      ctx.fillStyle = `hsl(${color})`;
+      ctx.beginPath();
+      ctx.moveTo(centerX, centerY);
+      ctx.arc(centerX, centerY, radius, currentAngle, currentAngle + sliceAngle);
+      ctx.closePath();
+      ctx.fill();
+
+      // Draw slice border
+      ctx.strokeStyle = '#fff';
+      ctx.lineWidth = 2;
+      ctx.stroke();
+
+      currentAngle += sliceAngle;
+
+      // Add to legend
+      const legendItem = document.createElement('div');
+      legendItem.className = 'flex items-center gap-2';
+      legendItem.innerHTML = `
+        <div class="w-3 h-3 rounded-sm" style="background: hsl(${color})"></div>
+        <span class="text-gray-700 dark:text-gray-300">${data.labels[index]}: ${value}%</span>
+      `;
+      legend.appendChild(legendItem);
+    });
+  }
+
+  // Render on load
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', renderPieChart);
+  } else {
+    renderPieChart();
+  }
+</script>

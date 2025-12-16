@@ -1,0 +1,93 @@
+---
+/**
+ * 仪表盘布局
+ * 包含侧边栏、顶部导航和多标签栏
+ */
+import Layout from './Layout.astro';
+import Sidebar from '../components/dashboard/Sidebar.astro';
+import Header from '../components/dashboard/Header.astro';
+import TabBar from '../components/TabBar.astro';
+
+interface Props {
+  title: string;
+  description?: string;
+}
+
+const { title, description } = Astro.props;
+const currentPath = Astro.url.pathname;
+---
+
+<Layout title={title} description={description}>
+  <div class="min-h-screen bg-gray-50 dark:bg-gray-900">
+    <!-- 侧边栏 -->
+    <Sidebar currentPath={currentPath} />
+
+    <!-- 主内容区域 -->
+    <div id="main-content" class="lg:pl-64 transition-all duration-300">
+      <!-- 顶部导航 -->
+      <Header title={title} />
+
+      <!-- 多标签栏 -->
+      <TabBar />
+
+      <!-- 页面内容 -->
+      <main class="p-4 lg:p-6">
+        <slot />
+      </main>
+    </div>
+  </div>
+</Layout>
+
+<script>
+  import { initUiSettings, loadUiSettings } from '../lib/ui-settings';
+  import { addTab, getTabByPath } from '../lib/tabs-store';
+  import { restoreScroll } from '../lib/page-cache';
+
+  // Initialize UI settings and apply skin on page load
+  initUiSettings();
+
+  // Add current page to tabs
+  const currentPath = window.location.pathname;
+  const currentTitle = document.title.split(' - ')[0] || '页面';
+
+  // Check if tab already exists, if not add it
+  const existingTab = getTabByPath(currentPath);
+  if (!existingTab && currentPath !== '/dashboard') {
+    addTab({
+      title: currentTitle,
+      path: currentPath,
+      closable: true,
+    });
+
+    // Trigger tab bar re-render
+    if (typeof (window as Window & { renderTabs?: () => void }).renderTabs === 'function') {
+      (window as unknown as Window & { renderTabs: () => void }).renderTabs();
+    }
+  }
+
+  // Restore scroll position for current page
+  restoreScroll(currentPath);
+
+  // 页面加载时同步侧边栏状态
+  const mainContent = document.getElementById('main-content');
+  const isCollapsed = localStorage.getItem('sidebar-collapsed') === 'true';
+
+  if (isCollapsed && mainContent) {
+    mainContent.classList.remove('lg:pl-64');
+    mainContent.classList.add('lg:pl-[4.5rem]');
+  }
+
+  // Make UI settings functions globally available for quick settings
+  (
+    window as unknown as Window & {
+      uiSettings: { loadSettings: () => void; applySkin: (skin: string) => Promise<void> };
+    }
+  ).uiSettings = {
+    loadSettings: loadUiSettings,
+    applySkin: async (skin: string) => {
+      const { applySkin } = await import('../lib/ui-settings');
+      applySkin(skin as import('../lib/ui-settings').SkinPreset);
+      window.location.reload(); // Reload to apply skin
+    },
+  };
+</script>

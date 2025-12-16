@@ -1,0 +1,110 @@
+---
+/**
+ * 个人资料页面
+ */
+import DashboardLayout from '../../layouts/DashboardLayout.astro';
+---
+
+<DashboardLayout title="个人资料">
+  <div class="space-y-6">
+    <div>
+      <h2 class="text-2xl font-bold text-gray-900 dark:text-white">个人资料</h2>
+      <p class="mt-1 text-gray-600 dark:text-gray-400">管理您的个人信息和账户设置</p>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+      <!-- 左侧头像卡片 -->
+      <div class="card p-6 text-center">
+        <div
+          class="w-24 h-24 mx-auto rounded-full bg-primary-100 dark:bg-primary-900/30 flex items-center justify-center mb-4"
+        >
+          <span class="text-3xl font-bold text-primary-700 dark:text-primary-400">管</span>
+        </div>
+        <h3 class="text-lg font-semibold text-gray-900 dark:text-white">管理员</h3>
+        <p class="text-sm text-gray-500 dark:text-gray-400">admin@halolight.h7ml.cn</p>
+        <p class="mt-2 text-xs text-gray-400 dark:text-gray-500">注册于 2024-01-01</p>
+        <button class="mt-4 btn-outline w-full">更换头像</button>
+      </div>
+
+      <!-- 右侧表单 -->
+      <div class="lg:col-span-2 space-y-6">
+        <!-- 基本信息 -->
+        <div class="card p-6">
+          <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-4">基本信息</h3>
+          <form class="space-y-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div>
+                <label for="firstName" class="label">名</label>
+                <input type="text" id="firstName" class="input" value="管理" />
+              </div>
+              <div>
+                <label for="lastName" class="label">姓</label>
+                <input type="text" id="lastName" class="input" value="员" />
+              </div>
+            </div>
+            <div>
+              <label for="email" class="label">邮箱</label>
+              <input type="email" id="email" class="input" value="admin@halolight.h7ml.cn" />
+            </div>
+            <div>
+              <label for="phone" class="label">手机号</label>
+              <input type="tel" id="phone" class="input" placeholder="请输入手机号" />
+            </div>
+            <div>
+              <label for="bio" class="label">个人简介</label>
+              <textarea id="bio" rows="3" class="input" placeholder="介绍一下自己..."></textarea>
+            </div>
+            <div class="flex justify-end">
+              <button type="submit" class="btn-primary">保存更改</button>
+            </div>
+          </form>
+        </div>
+
+        <!-- 修改密码 -->
+        <div class="card p-6">
+          <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-4">修改密码</h3>
+          <form class="space-y-4">
+            <div>
+              <label for="currentPassword" class="label">当前密码</label>
+              <input
+                type="password"
+                id="currentPassword"
+                class="input"
+                placeholder="请输入当前密码"
+              />
+            </div>
+            <div>
+              <label for="newPassword" class="label">新密码</label>
+              <input type="password" id="newPassword" class="input" placeholder="请输入新密码" />
+            </div>
+            <div>
+              <label for="confirmPassword" class="label">确认新密码</label>
+              <input
+                type="password"
+                id="confirmPassword"
+                class="input"
+                placeholder="请再次输入新密码"
+              />
+            </div>
+            <div class="flex justify-end">
+              <button type="submit" class="btn-primary">更新密码</button>
+            </div>
+          </form>
+        </div>
+
+        <!-- 危险区域 -->
+        <div class="card p-6 border-red-200 dark:border-red-800">
+          <h3 class="text-lg font-semibold text-red-600 dark:text-red-400 mb-4">危险区域</h3>
+          <p class="text-sm text-gray-600 dark:text-gray-400 mb-4">
+            删除账户后，所有数据将被永久删除且无法恢复。
+          </p>
+          <button
+            class="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 transition-colors"
+          >
+            删除账户
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</DashboardLayout>

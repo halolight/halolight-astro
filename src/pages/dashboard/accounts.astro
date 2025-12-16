@@ -1,0 +1,92 @@
+---
+/**
+ * 账户页面
+ */
+import DashboardLayout from '../../layouts/DashboardLayout.astro';
+
+const accounts = [
+  {
+    id: 1,
+    name: '科技公司 A',
+    type: '企业版',
+    members: 25,
+    storage: '45.2 GB',
+    status: 'active',
+  },
+  {
+    id: 2,
+    name: '创业团队 B',
+    type: '团队版',
+    members: 8,
+    storage: '12.8 GB',
+    status: 'active',
+  },
+  {
+    id: 3,
+    name: '个人用户 C',
+    type: '个人版',
+    members: 1,
+    storage: '2.1 GB',
+    status: 'trial',
+  },
+  {
+    id: 4,
+    name: '教育机构 D',
+    type: '教育版',
+    members: 150,
+    storage: '89.5 GB',
+    status: 'active',
+  },
+];
+
+const statusColors: Record<string, string> = {
+  active: 'bg-green-100 text-green-800 dark:bg-green-900/20 dark:text-green-400',
+  trial: 'bg-blue-100 text-blue-800 dark:bg-blue-900/20 dark:text-blue-400',
+  expired: 'bg-red-100 text-red-800 dark:bg-red-900/20 dark:text-red-400',
+};
+
+const statusLabels: Record<string, string> = {
+  active: '活跃',
+  trial: '试用中',
+  expired: '已过期',
+};
+---
+
+<DashboardLayout title="账户">
+  <div class="space-y-6">
+    <div class="flex items-center justify-between">
+      <div>
+        <h2 class="text-2xl font-bold text-gray-900 dark:text-white">账户管理</h2>
+        <p class="mt-1 text-gray-600 dark:text-gray-400">管理组织和账户信息</p>
+      </div>
+      <button class="btn-primary">新建账户</button>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      {
+        accounts.map((account) => (
+          <div class="card p-6">
+            <div class="flex items-center justify-between mb-4">
+              <div class="w-12 h-12 rounded-lg bg-primary-100 dark:bg-primary-900/30 flex items-center justify-center">
+                <span class="text-lg font-bold text-primary-700 dark:text-primary-400">
+                  {account.name.charAt(0)}
+                </span>
+              </div>
+              <span
+                class={`px-2 py-1 text-xs font-medium rounded-full ${statusColors[account.status]}`}
+              >
+                {statusLabels[account.status]}
+              </span>
+            </div>
+            <h3 class="font-semibold text-gray-900 dark:text-white">{account.name}</h3>
+            <p class="text-sm text-gray-500 dark:text-gray-400 mb-4">{account.type}</p>
+            <div class="flex items-center justify-between text-sm">
+              <span class="text-gray-600 dark:text-gray-400">{account.members} 成员</span>
+              <span class="text-gray-600 dark:text-gray-400">{account.storage}</span>
+            </div>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</DashboardLayout>

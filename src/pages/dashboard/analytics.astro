@@ -1,0 +1,154 @@
+---
+/**
+ * 分析页面 - 使用新的仪表盘小部件
+ */
+import DashboardLayout from '../../layouts/DashboardLayout.astro';
+import ChartBarWidget from '../../components/dashboard/widgets/ChartBarWidget.astro';
+import ChartPieWidget from '../../components/dashboard/widgets/ChartPieWidget.astro';
+import RecentUsersWidget from '../../components/dashboard/widgets/RecentUsersWidget.astro';
+import TasksWidget from '../../components/dashboard/widgets/TasksWidget.astro';
+import CalendarWidget from '../../components/dashboard/widgets/CalendarWidget.astro';
+
+// 分析数据
+const metrics = [
+  { label: '页面浏览量', value: '45,678', change: '+15%', period: '较上周' },
+  { label: '独立访客', value: '12,345', change: '+8%', period: '较上周' },
+  { label: '平均会话时长', value: '4:32', change: '+12%', period: '较上周' },
+  { label: '跳出率', value: '32%', change: '-5%', period: '较上周' },
+];
+
+const topPages = [
+  { path: '/dashboard', views: 8234, percentage: 28 },
+  { path: '/dashboard/users', views: 5621, percentage: 19 },
+  { path: '/dashboard/analytics', views: 4532, percentage: 15 },
+  { path: '/dashboard/documents', views: 3421, percentage: 12 },
+  { path: '/dashboard/settings', views: 2876, percentage: 10 },
+];
+
+const topCountries = [
+  { name: '中国', users: 8234, flag: '🇨🇳' },
+  { name: '美国', users: 2341, flag: '🇺🇸' },
+  { name: '日本', users: 1234, flag: '🇯🇵' },
+  { name: '韩国', users: 987, flag: '🇰🇷' },
+  { name: '新加坡', users: 543, flag: '🇸🇬' },
+];
+---
+
+<DashboardLayout title="分析">
+  <div class="space-y-6">
+    <!-- 页面标题 -->
+    <div class="flex items-center justify-between">
+      <div>
+        <h2 class="text-2xl font-bold text-gray-900 dark:text-white">数据分析</h2>
+        <p class="mt-1 text-gray-600 dark:text-gray-400">查看网站流量和用户行为分析</p>
+      </div>
+      <div class="flex gap-2">
+        <select class="input py-2 px-3 w-auto">
+          <option>最近 7 天</option>
+          <option>最近 30 天</option>
+          <option>最近 90 天</option>
+          <option>今年</option>
+        </select>
+        <button class="btn-primary">导出数据</button>
+      </div>
+    </div>
+
+    <!-- 指标卡片 -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      {
+        metrics.map((metric) => (
+          <div class="card p-6">
+            <p class="text-sm text-gray-600 dark:text-gray-400">{metric.label}</p>
+            <p class="mt-2 text-3xl font-bold text-gray-900 dark:text-white">{metric.value}</p>
+            <p class="mt-2 text-sm">
+              <span
+                class={
+                  metric.change.startsWith('+')
+                    ? 'text-green-600 dark:text-green-400'
+                    : 'text-red-600 dark:text-red-400'
+                }
+              >
+                {metric.change}
+              </span>
+              <span class="text-gray-500 dark:text-gray-500"> {metric.period}</span>
+            </p>
+          </div>
+        ))
+      }
+    </div>
+
+    <!-- 图表小部件区域 -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <!-- 柱状图小部件 - 销售统计 -->
+      <ChartBarWidget title="月度销售统计" />
+
+      <!-- 饼图小部件 - 设备分布 -->
+      <ChartPieWidget title="设备分布" />
+    </div>
+
+    <!-- 数据表格 -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <!-- 热门页面 -->
+      <div class="card p-6">
+        <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-4">热门页面</h3>
+        <div class="space-y-4">
+          {
+            topPages.map((page) => (
+              <div class="flex items-center gap-4">
+                <div class="flex-1 min-w-0">
+                  <p class="text-sm font-medium text-gray-900 dark:text-white truncate">
+                    {page.path}
+                  </p>
+                  <div class="mt-1 w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
+                    <div
+                      class="bg-primary-600 h-2 rounded-full"
+                      style={`width: ${page.percentage}%`}
+                    />
+                  </div>
+                </div>
+                <div class="text-right">
+                  <p class="text-sm font-medium text-gray-900 dark:text-white">
+                    {page.views.toLocaleString()}
+                  </p>
+                  <p class="text-xs text-gray-500 dark:text-gray-400">{page.percentage}%</p>
+                </div>
+              </div>
+            ))
+          }
+        </div>
+      </div>
+
+      <!-- 用户地区分布 -->
+      <div class="card p-6">
+        <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-4">用户地区分布</h3>
+        <div class="space-y-4">
+          {
+            topCountries.map((country) => (
+              <div class="flex items-center gap-4">
+                <span class="text-2xl">{country.flag}</span>
+                <div class="flex-1">
+                  <p class="text-sm font-medium text-gray-900 dark:text-white">{country.name}</p>
+                </div>
+                <p class="text-sm font-medium text-gray-900 dark:text-white">
+                  {country.users.toLocaleString()} 用户
+                </p>
+              </div>
+            ))
+          }
+        </div>
+      </div>
+    </div>
+
+    <!-- 扩展小部件区域 - 显示最近用户、待办任务和日程 -->
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+      <!-- 最近用户小部件 -->
+      <RecentUsersWidget />
+
+      <!-- 待办任务小部件 -->
+      <TasksWidget />
+
+      <!-- 日历小部件 -->
+      <CalendarWidget />
+    </div>
+  </div>
+</DashboardLayout>

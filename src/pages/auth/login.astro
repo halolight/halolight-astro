@@ -1,0 +1,636 @@
+---
+/**
+ * 登录页面 - 与 Next.js/Vue.js 版本保持一致的设计
+ */
+import AuthLayout from '../../layouts/AuthLayout.astro';
+
+const demoEmail = import.meta.env.PUBLIC_DEMO_EMAIL || 'admin@halolight.h7ml.cn';
+const demoPassword = import.meta.env.PUBLIC_DEMO_PASSWORD || '123456';
+const showDemoHint = import.meta.env.PUBLIC_SHOW_DEMO_HINT === 'true';
+const brandName = import.meta.env.PUBLIC_BRAND_NAME || 'Admin Pro';
+---
+
+<AuthLayout title="登录">
+  <!-- 左侧装饰内容 -->
+  <div slot="left" class="animate-fade-in-up">
+    <!-- Logo + 品牌 -->
+    <div class="flex items-center gap-3 mb-12 group cursor-pointer">
+      <div
+        class="relative h-14 w-14 rounded-2xl bg-white/10 backdrop-blur-xl border border-white/20 flex items-center justify-center shadow-2xl transition-transform group-hover:scale-105"
+      >
+        <svg
+          class="h-7 w-7 text-white"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+        >
+          <path
+            d="M12 3l1.912 5.813a2 2 0 001.272 1.272L21 12l-5.813 1.912a2 2 0 00-1.272 1.272L12 21l-1.912-5.813a2 2 0 00-1.272-1.272L3 12l5.813-1.912a2 2 0 001.272-1.272L12 3z"
+          ></path>
+        </svg>
+        <div class="absolute inset-0 rounded-2xl bg-gradient-to-br from-white/20 to-transparent">
+        </div>
+      </div>
+      <div>
+        <h2 class="text-2xl font-bold tracking-tight text-white">{brandName}</h2>
+        <p class="text-xs text-white/60">企业级管理系统</p>
+      </div>
+    </div>
+
+    <!-- 欢迎标题 -->
+    <h1 class="text-5xl xl:text-6xl font-bold mb-6 leading-tight text-white">
+      欢迎回来
+      <span class="inline-block ml-2 animate-emoji-blink">👋</span>
+    </h1>
+    <p class="text-lg text-white/70 max-w-md leading-relaxed mb-12">
+      登录您的账户，开始管理您的业务数据和团队协作，体验高效的工作流程。
+    </p>
+
+    <!-- 特性列表 -->
+    <div class="space-y-4">
+      <div
+        class="flex items-center gap-3 group animate-fade-in-left"
+        style="animation-delay: 0.1s;"
+      >
+        <div
+          class="flex-shrink-0 w-10 h-10 rounded-xl bg-white/10 backdrop-blur-sm border border-white/20 flex items-center justify-center text-xl transition-transform group-hover:scale-110"
+        >
+          🚀
+        </div>
+        <span class="text-white/90">快速部署，即刻启动</span>
+      </div>
+      <div
+        class="flex items-center gap-3 group animate-fade-in-left"
+        style="animation-delay: 0.2s;"
+      >
+        <div
+          class="flex-shrink-0 w-10 h-10 rounded-xl bg-white/10 backdrop-blur-sm border border-white/20 flex items-center justify-center text-xl transition-transform group-hover:scale-110"
+        >
+          📊
+        </div>
+        <span class="text-white/90">实时数据分析与可视化</span>
+      </div>
+      <div
+        class="flex items-center gap-3 group animate-fade-in-left"
+        style="animation-delay: 0.3s;"
+      >
+        <div
+          class="flex-shrink-0 w-10 h-10 rounded-xl bg-white/10 backdrop-blur-sm border border-white/20 flex items-center justify-center text-xl transition-transform group-hover:scale-110"
+        >
+          🔒
+        </div>
+        <span class="text-white/90">企业级安全保障</span>
+      </div>
+      <div
+        class="flex items-center gap-3 group animate-fade-in-left"
+        style="animation-delay: 0.4s;"
+      >
+        <div
+          class="flex-shrink-0 w-10 h-10 rounded-xl bg-white/10 backdrop-blur-sm border border-white/20 flex items-center justify-center text-xl transition-transform group-hover:scale-110"
+        >
+          ⚡
+        </div>
+        <span class="text-white/90">极致性能体验</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 右侧登录卡片 -->
+  <div slot="right" class="w-full max-w-md animate-fade-in-up">
+    <!-- 移动端 Logo -->
+    <div class="mb-5 lg:hidden text-center animate-fade-in-down">
+      <div
+        class="inline-flex items-center gap-3 mb-3 px-6 py-3 rounded-2xl bg-gradient-to-br from-blue-600 to-indigo-600 shadow-xl"
+      >
+        <svg
+          class="h-6 w-6 text-white"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+        >
+          <path
+            d="M12 3l1.912 5.813a2 2 0 001.272 1.272L21 12l-5.813 1.912a2 2 0 00-1.272 1.272L12 21l-1.912-5.813a2 2 0 00-1.272-1.272L3 12l5.813-1.912a2 2 0 001.272-1.272L12 3z"
+          ></path>
+        </svg>
+        <span class="text-xl font-bold text-white">{brandName}</span>
+      </div>
+      <p class="text-sm text-gray-500 dark:text-gray-400">欢迎回来，请登录您的账户</p>
+    </div>
+
+    <!-- 卡片容器 -->
+    <div
+      class="border border-gray-200/50 dark:border-gray-700/50 shadow-2xl backdrop-blur-xl bg-white/80 dark:bg-gray-900/80 rounded-2xl overflow-hidden"
+    >
+      <!-- 渐变顶部条 -->
+      <div class="h-1 bg-gradient-to-r from-blue-600 via-indigo-600 to-violet-600"></div>
+
+      <!-- 卡片头部 -->
+      <div class="text-center pb-3 sm:pb-5 pt-4 sm:pt-7 px-4 sm:px-6">
+        <h1
+          class="text-2xl sm:text-3xl font-bold bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent animate-scale-in"
+        >
+          登录账户
+        </h1>
+        <p class="text-xs sm:text-sm mt-2 text-gray-500 dark:text-gray-400">
+          输入您的邮箱和密码登录
+        </p>
+      </div>
+
+      <!-- 卡片内容 -->
+      <div class="space-y-3 sm:space-y-4 px-4 sm:px-6">
+        <!-- 社交登录按钮 -->
+        <div class="grid grid-cols-3 gap-2 sm:gap-3">
+          <button
+            type="button"
+            data-provider="github"
+            class="social-btn flex items-center justify-center h-11 sm:h-12 border border-gray-200/50 dark:border-gray-700/50 rounded-xl bg-transparent hover:border-blue-500/50 hover:bg-blue-50/50 dark:hover:bg-blue-900/20 transition-all duration-300 group animate-fade-in-up disabled:opacity-50 disabled:cursor-not-allowed"
+            style="animation-delay: 0.1s;"
+            title={`使用 GitHub 登录${showDemoHint ? ' (模拟)' : ''}`}
+          >
+            <svg
+              class="social-icon h-5 w-5 text-gray-700 dark:text-gray-300 transition-transform group-hover:scale-110"
+              viewBox="0 0 24 24"
+              fill="currentColor"
+            >
+              <path
+                d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"
+              ></path>
+            </svg>
+            <svg
+              class="social-loading hidden h-4 w-4 animate-spin"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <path d="M21 12a9 9 0 11-6.219-8.56"></path>
+            </svg>
+          </button>
+          <button
+            type="button"
+            data-provider="google"
+            class="social-btn flex items-center justify-center h-11 sm:h-12 border border-gray-200/50 dark:border-gray-700/50 rounded-xl bg-transparent hover:border-blue-500/50 hover:bg-blue-50/50 dark:hover:bg-blue-900/20 transition-all duration-300 group animate-fade-in-up disabled:opacity-50 disabled:cursor-not-allowed"
+            style="animation-delay: 0.15s;"
+            title={`使用 Google 登录${showDemoHint ? ' (模拟)' : ''}`}
+          >
+            <svg
+              class="social-icon h-5 w-5 text-gray-700 dark:text-gray-300 transition-transform group-hover:scale-110"
+              viewBox="0 0 24 24"
+              fill="currentColor"
+            >
+              <path
+                d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"
+                fill="#4285F4"></path>
+              <path
+                d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"
+                fill="#34A853"></path>
+              <path
+                d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"
+                fill="#FBBC05"></path>
+              <path
+                d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"
+                fill="#EA4335"></path>
+            </svg>
+            <svg
+              class="social-loading hidden h-4 w-4 animate-spin"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <path d="M21 12a9 9 0 11-6.219-8.56"></path>
+            </svg>
+          </button>
+          <button
+            type="button"
+            data-provider="wechat"
+            class="social-btn flex items-center justify-center h-11 sm:h-12 border border-gray-200/50 dark:border-gray-700/50 rounded-xl bg-transparent hover:border-green-500/50 hover:bg-green-50/50 dark:hover:bg-green-900/20 transition-all duration-300 group animate-fade-in-up disabled:opacity-50 disabled:cursor-not-allowed"
+            style="animation-delay: 0.2s;"
+            title={`使用微信登录${showDemoHint ? ' (模拟)' : ''}`}
+          >
+            <svg
+              class="social-icon h-5 w-5 text-green-600 dark:text-green-400 transition-transform group-hover:scale-110"
+              viewBox="0 0 24 24"
+              fill="currentColor"
+            >
+              <path
+                d="M8.691 2.188C3.891 2.188 0 5.476 0 9.53c0 2.212 1.17 4.203 3.002 5.55a.59.59 0 01.213.665l-.39 1.48c-.019.07-.048.141-.048.213 0 .163.13.295.29.295a.326.326 0 00.167-.054l1.903-1.114a.864.864 0 01.717-.098 10.16 10.16 0 002.837.403c.276 0 .543-.027.811-.05-.857-2.578.157-4.972 1.932-6.446 1.703-1.415 3.882-1.98 5.853-1.838-.576-3.583-4.196-6.348-8.596-6.348zM5.785 5.991c.642 0 1.162.529 1.162 1.18a1.17 1.17 0 01-1.162 1.178A1.17 1.17 0 014.623 7.17c0-.651.52-1.18 1.162-1.18zm5.813 0c.642 0 1.162.529 1.162 1.18a1.17 1.17 0 01-1.162 1.178 1.17 1.17 0 01-1.162-1.178c0-.651.52-1.18 1.162-1.18zm5.34 2.867c-1.797-.052-3.746.512-5.28 1.786-1.72 1.428-2.687 3.72-1.78 6.22.942 2.453 3.666 4.229 6.884 4.229.826 0 1.622-.12 2.361-.336a.722.722 0 01.598.082l1.584.926a.272.272 0 00.14.045c.134 0 .24-.111.24-.247 0-.06-.023-.12-.038-.177l-.327-1.233a.582.582 0 01-.023-.156.49.49 0 01.201-.398C23.024 18.48 24 16.82 24 14.98c0-3.21-2.931-5.837-7.062-6.122zm-2.036 2.96c.535 0 .969.44.969.982a.976.976 0 01-.969.983.976.976 0 01-.969-.983c0-.542.434-.983.97-.983zm4.844 0c.535 0 .969.44.969.982a.976.976 0 01-.969.983.976.976 0 01-.969-.983c0-.542.434-.983.97-.983z"
+              ></path>
+            </svg>
+            <svg
+              class="social-loading hidden h-4 w-4 animate-spin"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <path d="M21 12a9 9 0 11-6.219-8.56"></path>
+            </svg>
+          </button>
+        </div>
+
+        <!-- 分隔线 -->
+        <div class="relative py-3">
+          <div class="absolute inset-0 flex items-center">
+            <div class="w-full border-t border-gray-200 dark:border-gray-700"></div>
+          </div>
+          <div class="relative flex justify-center text-xs uppercase">
+            <span
+              class="bg-white dark:bg-gray-900 px-3 text-gray-500 dark:text-gray-400 font-medium"
+            >
+              或使用邮箱登录
+            </span>
+          </div>
+        </div>
+
+        <!-- 错误提示 -->
+        <div
+          id="error-message"
+          class="hidden p-3 rounded-xl bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 text-red-600 dark:text-red-400 text-xs sm:text-sm animate-shake"
+        >
+        </div>
+
+        <!-- 登录表单 -->
+        <form id="login-form" class="space-y-3 sm:space-y-4">
+          <!-- 邮箱输入 -->
+          <div class="space-y-2 animate-fade-in-up" style="animation-delay: 0.25s;">
+            <label for="email" class="text-xs font-medium text-gray-500 dark:text-gray-400"
+              >邮箱地址</label
+            >
+            <div class="relative group">
+              <svg
+                class="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400 group-focus-within:text-blue-600 transition-colors z-10"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <path
+                  d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"
+                ></path>
+                <polyline points="22,6 12,13 2,6"></polyline>
+              </svg>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                class="w-full pl-10 pr-4 h-12 text-sm border border-gray-200/50 dark:border-gray-700/50 focus:border-blue-500/50 rounded-xl transition-all bg-white dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-400"
+                placeholder="your@email.h7ml.cn"
+                required
+              />
+            </div>
+          </div>
+
+          <!-- 密码输入 -->
+          <div class="space-y-2 animate-fade-in-up" style="animation-delay: 0.3s;">
+            <label for="password" class="text-xs font-medium text-gray-500 dark:text-gray-400"
+              >密码</label
+            >
+            <div class="relative group">
+              <svg
+                class="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400 group-focus-within:text-blue-600 transition-colors"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                <path d="M7 11V7a5 5 0 0110 0v4"></path>
+              </svg>
+              <input
+                type="password"
+                id="password"
+                name="password"
+                class="w-full pl-10 pr-10 h-12 text-sm border border-gray-200/50 dark:border-gray-700/50 focus:border-blue-500/50 rounded-xl transition-all bg-white dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-400"
+                placeholder="••••••••"
+                required
+              />
+              <button
+                type="button"
+                id="toggle-password"
+                class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-colors"
+              >
+                <svg
+                  id="eye-icon"
+                  class="h-4 w-4"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                  <circle cx="12" cy="12" r="3"></circle>
+                </svg>
+                <svg
+                  id="eye-off-icon"
+                  class="h-4 w-4 hidden"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <path
+                    d="M17.94 17.94A10.07 10.07 0 0112 20c-7 0-11-8-11-8a18.45 18.45 0 015.06-5.94M9.9 4.24A9.12 9.12 0 0112 4c7 0 11 8 11 8a18.5 18.5 0 01-2.16 3.19m-6.72-1.07a3 3 0 11-4.24-4.24"
+                  ></path>
+                  <line x1="1" y1="1" x2="23" y2="23"></line>
+                </svg>
+              </button>
+            </div>
+          </div>
+
+          <!-- 记住我 + 忘记密码 -->
+          <div
+            class="flex items-center justify-between text-xs sm:text-sm animate-fade-in-up"
+            style="animation-delay: 0.35s;"
+          >
+            <label class="flex items-center gap-2 cursor-pointer group">
+              <input
+                type="checkbox"
+                id="remember"
+                name="remember"
+                class="w-4 h-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+              />
+              <span
+                class="text-gray-500 dark:text-gray-400 group-hover:text-gray-700 dark:group-hover:text-gray-300 transition-colors"
+                >记住我</span
+              >
+            </label>
+            <a
+              href="/auth/forgot-password"
+              class="text-blue-600 hover:text-blue-700 dark:text-blue-400 font-medium transition-colors"
+            >
+              忘记密码？
+            </a>
+          </div>
+
+          <!-- 演示账号按钮 -->
+          <div
+            class="flex items-center gap-2 py-2 animate-fade-in-up"
+            style="animation-delay: 0.4s;"
+          >
+            <div class="flex-1 h-px bg-gray-200/50 dark:bg-gray-700/50"></div>
+            {
+              demoEmail && demoPassword && (
+                <button
+                  type="button"
+                  id="fill-demo"
+                  class="h-7 px-3 text-xs text-gray-500 hover:text-blue-600 hover:bg-blue-50/50 dark:hover:bg-blue-900/20 rounded-lg transition-all inline-flex items-center gap-1.5"
+                >
+                  <svg
+                    class="h-3 w-3"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                  >
+                    <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2" />
+                    <circle cx="12" cy="7" r="4" />
+                  </svg>
+                  测试账号
+                </button>
+              )
+            }
+            <div class="flex-1 h-px bg-gray-200/50 dark:bg-gray-700/50"></div>
+          </div>
+
+          <!-- 登录按钮 -->
+          <div class="animate-fade-in-up" style="animation-delay: 0.45s;">
+            <button
+              type="submit"
+              id="submit-btn"
+              class="w-full h-12 text-sm font-medium text-white bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center gap-2"
+            >
+              <span id="btn-text">登录</span>
+              <span id="btn-arrow" class="animate-arrow-bounce">→</span>
+              <svg
+                id="btn-loading"
+                class="hidden h-4 w-4 animate-spin"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <path d="M21 12a9 9 0 11-6.219-8.56"></path>
+              </svg>
+            </button>
+          </div>
+        </form>
+      </div>
+
+      <!-- 卡片底部 -->
+      <div class="flex flex-col space-y-3 sm:space-y-4 px-4 sm:px-6 pb-5 sm:pb-8 pt-4">
+        <div class="w-full h-px bg-gray-200 dark:bg-gray-700"></div>
+        <p class="text-xs sm:text-sm text-gray-500 dark:text-gray-400 text-center">
+          还没有账户？
+          <a
+            href="/auth/register"
+            class="text-blue-600 hover:text-blue-700 dark:text-blue-400 font-semibold transition-colors"
+          >
+            立即注册
+          </a>
+        </p>
+        <p class="text-xs sm:text-sm text-gray-400 dark:text-gray-500 text-center leading-relaxed">
+          阅读我们的
+          <a
+            href="/terms"
+            class="text-blue-600 hover:text-blue-700 dark:text-blue-400 font-semibold transition-colors"
+          >
+            服务条款
+          </a>
+          和
+          <a
+            href="/privacy"
+            class="text-blue-600 hover:text-blue-700 dark:text-blue-400 font-semibold transition-colors"
+          >
+            隐私政策
+          </a>
+          了解更多信息。
+        </p>
+        {
+          showDemoHint && (
+            <p class="text-xs text-gray-400 dark:text-gray-500 text-center leading-relaxed">
+              测试账号请点击上方"测试账号"按钮自动填充
+            </p>
+          )
+        }
+      </div>
+    </div>
+  </div>
+</AuthLayout>
+
+<script define:vars={{ demoEmail, demoPassword }}>
+  // 获取 DOM 元素
+  const form = document.getElementById('login-form');
+  const emailInput = document.getElementById('email');
+  const passwordInput = document.getElementById('password');
+  const togglePasswordBtn = document.getElementById('toggle-password');
+  const eyeIcon = document.getElementById('eye-icon');
+  const eyeOffIcon = document.getElementById('eye-off-icon');
+  const fillDemoBtn = document.getElementById('fill-demo');
+  const submitBtn = document.getElementById('submit-btn');
+  const btnText = document.getElementById('btn-text');
+  const btnArrow = document.getElementById('btn-arrow');
+  const btnLoading = document.getElementById('btn-loading');
+  const errorMessage = document.getElementById('error-message');
+  const socialBtns = document.querySelectorAll('.social-btn');
+
+  // 显示 Toast 通知
+  function showToast(message, type = 'success') {
+    // 创建 toast 元素
+    const toast = document.createElement('div');
+    toast.className = `fixed top-4 right-4 z-50 px-4 py-3 rounded-xl shadow-lg animate-fade-in-down ${
+      type === 'success' ? 'bg-green-500 text-white' : 'bg-red-500 text-white'
+    }`;
+    toast.textContent = message;
+    document.body.appendChild(toast);
+
+    // 3秒后移除
+    setTimeout(() => {
+      toast.classList.add('animate-fade-out-up');
+      setTimeout(() => toast.remove(), 300);
+    }, 3000);
+  }
+
+  // 社交登录处理
+  socialBtns.forEach((btn) => {
+    btn.addEventListener('click', async () => {
+      const provider = btn.getAttribute('data-provider');
+      if (!provider) return;
+
+      // 获取按钮内的图标元素
+      const icon = btn.querySelector('.social-icon');
+      const loading = btn.querySelector('.social-loading');
+
+      // 设置加载状态
+      btn.disabled = true;
+      icon?.classList.add('hidden');
+      loading?.classList.remove('hidden');
+
+      try {
+        const response = await fetch('/api/auth/social-login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ provider }),
+        });
+
+        const data = await response.json();
+
+        if (response.ok && data.success) {
+          // 保存用户信息和 token 到 localStorage
+          localStorage.setItem('auth-user', JSON.stringify(data.user));
+          localStorage.setItem('auth-token', data.token);
+
+          const providerNames = {
+            github: 'GitHub',
+            google: 'Google',
+            wechat: '微信',
+          };
+
+          showToast(`${providerNames[provider] || provider} 登录成功`, 'success');
+
+          // 延迟跳转以显示成功消息
+          setTimeout(() => {
+            window.location.href = '/dashboard';
+          }, 500);
+        } else {
+          showToast(data.message || '登录失败', 'error');
+          // 恢复按钮状态
+          btn.disabled = false;
+          icon?.classList.remove('hidden');
+          loading?.classList.add('hidden');
+        }
+      } catch (error) {
+        console.error('Social login error:', error);
+        showToast('登录请求失败', 'error');
+        // 恢复按钮状态
+        btn.disabled = false;
+        icon?.classList.remove('hidden');
+        loading?.classList.add('hidden');
+      }
+    });
+  });
+
+  // 密码显示/隐藏切换
+  togglePasswordBtn?.addEventListener('click', () => {
+    const isPassword = passwordInput.type === 'password';
+    passwordInput.type = isPassword ? 'text' : 'password';
+    eyeIcon.classList.toggle('hidden', isPassword);
+    eyeOffIcon.classList.toggle('hidden', !isPassword);
+  });
+
+  // 填充演示账号
+  fillDemoBtn?.addEventListener('click', () => {
+    emailInput.value = demoEmail;
+    passwordInput.value = demoPassword;
+    // 添加填充动画
+    emailInput.classList.add('animate-pulse-scale');
+    passwordInput.classList.add('animate-pulse-scale');
+    setTimeout(() => {
+      emailInput.classList.remove('animate-pulse-scale');
+      passwordInput.classList.remove('animate-pulse-scale');
+    }, 300);
+  });
+
+  // 显示错误
+  function showError(message) {
+    errorMessage.textContent = message;
+    errorMessage.classList.remove('hidden');
+    // 添加抖动动画
+    errorMessage.classList.remove('animate-shake');
+    void errorMessage.offsetWidth; // 触发重绘
+    errorMessage.classList.add('animate-shake');
+  }
+
+  // 隐藏错误
+  function hideError() {
+    errorMessage.classList.add('hidden');
+  }
+
+  // 设置加载状态
+  function setLoading(loading) {
+    submitBtn.disabled = loading;
+    btnText.textContent = loading ? '登录中...' : '登录';
+    btnArrow.classList.toggle('hidden', loading);
+    btnLoading.classList.toggle('hidden', !loading);
+    submitBtn.classList.toggle('opacity-70', loading);
+    submitBtn.classList.toggle('cursor-not-allowed', loading);
+  }
+
+  // 表单提交
+  form?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    hideError();
+
+    const email = emailInput.value.trim();
+    const password = passwordInput.value;
+
+    if (!email || !password) {
+      showError('请填写邮箱和密码');
+      return;
+    }
+
+    setLoading(true);
+
+    try {
+      const response = await fetch('/api/auth/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password }),
+      });
+
+      if (response.ok) {
+        window.location.href = '/dashboard';
+      } else {
+        const data = await response.json();
+        showError(data.message || '登录失败，请检查账号密码');
+        setLoading(false);
+      }
+    } catch (_error) {
+      // 开发模式下直接跳转
+      console.log('登录请求失败，开发模式直接跳转');
+      window.location.href = '/dashboard';
+    }
+  });
+</script>

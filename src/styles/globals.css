@@ -1,0 +1,770 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* 基础主题变量 - 默认皮肤 */
+:root {
+  /* 主色调 */
+  --primary: 222 47% 11%;
+  --primary-foreground: 210 40% 98%;
+  --secondary: 210 40% 96.1%;
+  --secondary-foreground: 222.2 47.4% 11.2%;
+  --muted: 210 40% 96.1%;
+  --muted-foreground: 215.4 16.3% 46.9%;
+  --accent: 210 40% 96.1%;
+  --accent-foreground: 222.2 47.4% 11.2%;
+  --destructive: 0 84.2% 60.2%;
+  --border: 214.3 31.8% 91.4%;
+  --input: 214.3 31.8% 91.4%;
+  --ring: 222.2 84% 4.9%;
+
+  /* 图表颜色 */
+  --chart-1: 12 76% 61%;
+  --chart-2: 173 58% 39%;
+  --chart-3: 197 37% 24%;
+  --chart-4: 43 74% 66%;
+  --chart-5: 27 87% 67%;
+
+  /* 侧边栏变量 */
+  --sidebar-background: 0 0% 98%;
+  --sidebar-foreground: 240 5.3% 26.1%;
+  --sidebar-border: 220 13% 91%;
+  --sidebar-accent: 240 4.8% 95.9%;
+  --sidebar-accent-foreground: 240 5.9% 10%;
+  --sidebar-primary: 222 47% 11%;
+  --sidebar-primary-foreground: 210 40% 98%;
+  --sidebar-ring: 222.2 84% 4.9%;
+
+  /* 卡片变量 */
+  --card-background: 0 0% 100%;
+  --card-foreground: 240 5.9% 10%;
+  --card-border: 240 5.9% 90%;
+
+  /* 背景与前景 */
+  --background: 0 0% 100%;
+  --foreground: 222.2 84% 4.9%;
+  --popover: 0 0% 100%;
+  --popover-foreground: 222.2 84% 4.9%;
+}
+
+/* 深色主题 */
+.dark {
+  --background: 222.2 84% 4.9%;
+  --foreground: 210 40% 98%;
+  --card-background: 222.2 84% 4.9%;
+  --card-foreground: 210 40% 98%;
+  --card-border: 217.2 32.6% 17.5%;
+  --popover: 222.2 84% 4.9%;
+  --popover-foreground: 210 40% 98%;
+  --primary: 210 40% 98%;
+  --primary-foreground: 222.2 47.4% 11.2%;
+  --secondary: 217.2 32.6% 17.5%;
+  --secondary-foreground: 210 40% 98%;
+  --muted: 217.2 32.6% 17.5%;
+  --muted-foreground: 215 20.2% 65.1%;
+  --accent: 217.2 32.6% 17.5%;
+  --accent-foreground: 210 40% 98%;
+  --destructive: 0 62.8% 30.6%;
+  --border: 217.2 32.6% 17.5%;
+  --input: 217.2 32.6% 17.5%;
+  --ring: 212.7 26.8% 83.9%;
+  --chart-1: 220 70% 50%;
+  --chart-2: 160 60% 45%;
+  --chart-3: 30 80% 55%;
+  --chart-4: 280 65% 60%;
+  --chart-5: 340 75% 55%;
+
+  --sidebar-background: 222.2 84% 4.9%;
+  --sidebar-foreground: 210 40% 98%;
+  --sidebar-border: 217.2 32.6% 17.5%;
+  --sidebar-accent: 217.2 32.6% 17.5%;
+  --sidebar-accent-foreground: 210 40% 98%;
+  --sidebar-primary: 210 40% 98%;
+  --sidebar-primary-foreground: 222.2 47.4% 11.2%;
+  --sidebar-ring: 212.7 26.8% 83.9%;
+}
+
+/* ===========================
+   11 Skin Presets
+   =========================== */
+
+/* Blue Skin */
+:root[data-skin='blue'] {
+  --primary: 221.2 83.2% 53.3%;
+  --primary-foreground: 210 40% 98%;
+  --accent: 210 40% 96.1%;
+  --accent-foreground: 222.2 47.4% 11.2%;
+  --ring: 221.2 83.2% 53.3%;
+  --chart-1: 221.2 83.2% 53.3%;
+  --chart-2: 212 95% 68%;
+  --chart-3: 216 92% 60%;
+  --chart-4: 210 98% 78%;
+  --chart-5: 212 97% 87%;
+  --sidebar-primary: 221.2 83.2% 53.3%;
+  --sidebar-primary-foreground: 210 40% 98%;
+  --sidebar-ring: 221.2 83.2% 53.3%;
+}
+
+.dark[data-skin='blue'] {
+  --primary: 217.2 91.2% 59.8%;
+  --primary-foreground: 222.2 47.4% 11.2%;
+  --accent: 217.2 32.6% 17.5%;
+  --accent-foreground: 210 40% 98%;
+  --ring: 217.2 91.2% 59.8%;
+  --chart-1: 217.2 91.2% 59.8%;
+  --chart-2: 212 95% 68%;
+  --chart-3: 216 92% 60%;
+  --chart-4: 210 98% 78%;
+  --chart-5: 212 97% 87%;
+  --sidebar-primary: 217.2 91.2% 59.8%;
+  --sidebar-primary-foreground: 222.2 47.4% 11.2%;
+  --sidebar-ring: 217.2 91.2% 59.8%;
+}
+
+/* Emerald Skin */
+:root[data-skin='emerald'] {
+  --primary: 142.1 76.2% 36.3%;
+  --primary-foreground: 355.7 100% 97.3%;
+  --accent: 210 40% 96.1%;
+  --accent-foreground: 222.2 47.4% 11.2%;
+  --ring: 142.1 76.2% 36.3%;
+  --chart-1: 142.1 76.2% 36.3%;
+  --chart-2: 160.1 84.1% 39.4%;
+  --chart-3: 152.7 75.9% 44.9%;
+  --chart-4: 173 80% 40%;
+  --chart-5: 162 63% 40.4%;
+  --sidebar-primary: 142.1 76.2% 36.3%;
+  --sidebar-primary-foreground: 355.7 100% 97.3%;
+  --sidebar-ring: 142.1 76.2% 36.3%;
+}
+
+.dark[data-skin='emerald'] {
+  --primary: 160.1 84.1% 39.4%;
+  --primary-foreground: 355.7 100% 97.3%;
+  --accent: 217.2 32.6% 17.5%;
+  --accent-foreground: 210 40% 98%;
+  --ring: 160.1 84.1% 39.4%;
+  --chart-1: 160.1 84.1% 39.4%;
+  --chart-2: 142.1 76.2% 36.3%;
+  --chart-3: 152.7 75.9% 44.9%;
+  --chart-4: 173 80% 40%;
+  --chart-5: 162 63% 40.4%;
+  --sidebar-primary: 160.1 84.1% 39.4%;
+  --sidebar-primary-foreground: 355.7 100% 97.3%;
+  --sidebar-ring: 160.1 84.1% 39.4%;
+}
+
+/* Amber Skin */
+:root[data-skin='amber'] {
+  --primary: 32.1 94.6% 43.7%;
+  --primary-foreground: 26 83.3% 14.1%;
+  --accent: 210 40% 96.1%;
+  --accent-foreground: 222.2 47.4% 11.2%;
+  --ring: 32.1 94.6% 43.7%;
+  --chart-1: 32.1 94.6% 43.7%;
+  --chart-2: 43.3 96.4% 56.3%;
+  --chart-3: 38 92% 50%;
+  --chart-4: 48 96% 53%;
+  --chart-5: 54 91% 67%;
+  --sidebar-primary: 32.1 94.6% 43.7%;
+  --sidebar-primary-foreground: 26 83.3% 14.1%;
+  --sidebar-ring: 32.1 94.6% 43.7%;
+}
+
+.dark[data-skin='amber'] {
+  --primary: 47.9 95.8% 53.1%;
+  --primary-foreground: 26 83.3% 14.1%;
+  --accent: 217.2 32.6% 17.5%;
+  --accent-foreground: 210 40% 98%;
+  --ring: 47.9 95.8% 53.1%;
+  --chart-1: 47.9 95.8% 53.1%;
+  --chart-2: 43.3 96.4% 56.3%;
+  --chart-3: 38 92% 50%;
+  --chart-4: 48 96% 53%;
+  --chart-5: 54 91% 67%;
+  --sidebar-primary: 47.9 95.8% 53.1%;
+  --sidebar-primary-foreground: 26 83.3% 14.1%;
+  --sidebar-ring: 47.9 95.8% 53.1%;
+}
+
+/* Violet Skin */
+:root[data-skin='violet'] {
+  --primary: 262.1 83.3% 57.8%;
+  --primary-foreground: 210 40% 98%;
+  --accent: 210 40% 96.1%;
+  --accent-foreground: 222.2 47.4% 11.2%;
+  --ring: 262.1 83.3% 57.8%;
+  --chart-1: 262.1 83.3% 57.8%;
+  --chart-2: 270 91% 65%;
+  --chart-3: 255 92% 76%;
+  --chart-4: 280 89% 66%;
+  --chart-5: 269 97% 85%;
+  --sidebar-primary: 262.1 83.3% 57.8%;
+  --sidebar-primary-foreground: 210 40% 98%;
+  --sidebar-ring: 262.1 83.3% 57.8%;
+}
+
+.dark[data-skin='violet'] {
+  --primary: 263.4 70% 50.4%;
+  --primary-foreground: 210 40% 98%;
+  --accent: 217.2 32.6% 17.5%;
+  --accent-foreground: 210 40% 98%;
+  --ring: 263.4 70% 50.4%;
+  --chart-1: 263.4 70% 50.4%;
+  --chart-2: 270 91% 65%;
+  --chart-3: 255 92% 76%;
+  --chart-4: 280 89% 66%;
+  --chart-5: 269 97% 85%;
+  --sidebar-primary: 263.4 70% 50.4%;
+  --sidebar-primary-foreground: 210 40% 98%;
+  --sidebar-ring: 263.4 70% 50.4%;
+}
+
+/* Rose Skin */
+:root[data-skin='rose'] {
+  --primary: 346.8 77.2% 49.8%;
+  --primary-foreground: 355.7 100% 97.3%;
+  --accent: 210 40% 96.1%;
+  --accent-foreground: 222.2 47.4% 11.2%;
+  --ring: 346.8 77.2% 49.8%;
+  --chart-1: 346.8 77.2% 49.8%;
+  --chart-2: 350 89% 60%;
+  --chart-3: 343 80% 64%;
+  --chart-4: 351 95% 71%;
+  --chart-5: 353 96% 82%;
+  --sidebar-primary: 346.8 77.2% 49.8%;
+  --sidebar-primary-foreground: 355.7 100% 97.3%;
+  --sidebar-ring: 346.8 77.2% 49.8%;
+}
+
+.dark[data-skin='rose'] {
+  --primary: 346.8 77.2% 49.8%;
+  --primary-foreground: 355.7 100% 97.3%;
+  --accent: 217.2 32.6% 17.5%;
+  --accent-foreground: 210 40% 98%;
+  --ring: 346.8 77.2% 49.8%;
+  --chart-1: 346.8 77.2% 49.8%;
+  --chart-2: 350 89% 60%;
+  --chart-3: 343 80% 64%;
+  --chart-4: 351 95% 71%;
+  --chart-5: 353 96% 82%;
+  --sidebar-primary: 346.8 77.2% 49.8%;
+  --sidebar-primary-foreground: 355.7 100% 97.3%;
+  --sidebar-ring: 346.8 77.2% 49.8%;
+}
+
+/* Teal Skin */
+:root[data-skin='teal'] {
+  --primary: 173 80% 40%;
+  --primary-foreground: 355.7 100% 97.3%;
+  --accent: 210 40% 96.1%;
+  --accent-foreground: 222.2 47.4% 11.2%;
+  --ring: 173 80% 40%;
+  --chart-1: 173 80% 40%;
+  --chart-2: 180 77% 47%;
+  --chart-3: 175 84% 32%;
+  --chart-4: 172 66% 50%;
+  --chart-5: 185 57% 50%;
+  --sidebar-primary: 173 80% 40%;
+  --sidebar-primary-foreground: 355.7 100% 97.3%;
+  --sidebar-ring: 173 80% 40%;
+}
+
+.dark[data-skin='teal'] {
+  --primary: 172.5 66% 50.4%;
+  --primary-foreground: 355.7 100% 97.3%;
+  --accent: 217.2 32.6% 17.5%;
+  --accent-foreground: 210 40% 98%;
+  --ring: 172.5 66% 50.4%;
+  --chart-1: 172.5 66% 50.4%;
+  --chart-2: 180 77% 47%;
+  --chart-3: 175 84% 32%;
+  --chart-4: 172 66% 50%;
+  --chart-5: 185 57% 50%;
+  --sidebar-primary: 172.5 66% 50.4%;
+  --sidebar-primary-foreground: 355.7 100% 97.3%;
+  --sidebar-ring: 172.5 66% 50.4%;
+}
+
+/* Slate Skin */
+:root[data-skin='slate'] {
+  --primary: 215.4 16.3% 46.9%;
+  --primary-foreground: 210 40% 98%;
+  --accent: 210 40% 96.1%;
+  --accent-foreground: 222.2 47.4% 11.2%;
+  --ring: 215.4 16.3% 46.9%;
+  --chart-1: 217.2 91.2% 59.8%;
+  --chart-2: 173 80% 40%;
+  --chart-3: 32.1 94.6% 43.7%;
+  --chart-4: 262.1 83.3% 57.8%;
+  --chart-5: 346.8 77.2% 49.8%;
+  --sidebar-primary: 215.4 16.3% 46.9%;
+  --sidebar-primary-foreground: 210 40% 98%;
+  --sidebar-ring: 215.4 16.3% 46.9%;
+}
+
+.dark[data-skin='slate'] {
+  --primary: 215 20.2% 65.1%;
+  --primary-foreground: 210 40% 98%;
+  --accent: 217.2 32.6% 17.5%;
+  --accent-foreground: 210 40% 98%;
+  --ring: 215 20.2% 65.1%;
+  --chart-1: 217.2 91.2% 59.8%;
+  --chart-2: 160.1 84.1% 39.4%;
+  --chart-3: 47.9 95.8% 53.1%;
+  --chart-4: 263.4 70% 50.4%;
+  --chart-5: 346.8 77.2% 49.8%;
+  --sidebar-primary: 215 20.2% 65.1%;
+  --sidebar-primary-foreground: 210 40% 98%;
+  --sidebar-ring: 215 20.2% 65.1%;
+}
+
+/* Ocean Skin */
+:root[data-skin='ocean'] {
+  --primary: 199 89% 48%;
+  --primary-foreground: 210 40% 98%;
+  --accent: 189 75% 75%;
+  --accent-foreground: 199 89% 20%;
+  --ring: 199 89% 48%;
+  --chart-1: 199 89% 48%;
+  --chart-2: 189 85% 40%;
+  --chart-3: 180 83% 45%;
+  --chart-4: 210 90% 55%;
+  --chart-5: 195 92% 38%;
+  --sidebar-primary: 199 89% 48%;
+  --sidebar-primary-foreground: 210 40% 98%;
+  --sidebar-ring: 199 89% 48%;
+}
+
+.dark[data-skin='ocean'] {
+  --primary: 189 85% 55%;
+  --primary-foreground: 199 89% 15%;
+  --accent: 199 89% 25%;
+  --accent-foreground: 189 75% 75%;
+  --ring: 189 85% 55%;
+  --chart-1: 189 85% 55%;
+  --chart-2: 180 83% 45%;
+  --chart-3: 195 92% 38%;
+  --chart-4: 210 90% 55%;
+  --chart-5: 199 89% 48%;
+  --sidebar-primary: 189 85% 55%;
+  --sidebar-primary-foreground: 199 89% 15%;
+  --sidebar-ring: 189 85% 55%;
+}
+
+/* Sunset Skin */
+:root[data-skin='sunset'] {
+  --primary: 14 90% 53%;
+  --primary-foreground: 0 0% 100%;
+  --accent: 25 95% 70%;
+  --accent-foreground: 14 90% 20%;
+  --ring: 14 90% 53%;
+  --chart-1: 14 90% 53%;
+  --chart-2: 25 95% 60%;
+  --chart-3: 5 85% 55%;
+  --chart-4: 35 88% 60%;
+  --chart-5: 45 92% 65%;
+  --sidebar-primary: 14 90% 53%;
+  --sidebar-primary-foreground: 0 0% 100%;
+  --sidebar-ring: 14 90% 53%;
+}
+
+.dark[data-skin='sunset'] {
+  --primary: 25 95% 60%;
+  --primary-foreground: 14 90% 15%;
+  --accent: 14 90% 25%;
+  --accent-foreground: 25 95% 70%;
+  --ring: 25 95% 60%;
+  --chart-1: 25 95% 60%;
+  --chart-2: 14 90% 53%;
+  --chart-3: 5 85% 55%;
+  --chart-4: 35 88% 60%;
+  --chart-5: 45 92% 65%;
+  --sidebar-primary: 25 95% 60%;
+  --sidebar-primary-foreground: 14 90% 15%;
+  --sidebar-ring: 25 95% 60%;
+}
+
+/* Aurora Skin */
+:root[data-skin='aurora'] {
+  --primary: 158 64% 52%;
+  --primary-foreground: 0 0% 100%;
+  --accent: 280 65% 75%;
+  --accent-foreground: 158 64% 20%;
+  --ring: 158 64% 52%;
+  --chart-1: 158 64% 52%;
+  --chart-2: 190 75% 55%;
+  --chart-3: 280 65% 60%;
+  --chart-4: 40 88% 60%;
+  --chart-5: 340 80% 58%;
+  --sidebar-primary: 158 64% 52%;
+  --sidebar-primary-foreground: 0 0% 100%;
+  --sidebar-ring: 158 64% 52%;
+}
+
+.dark[data-skin='aurora'] {
+  --primary: 158 64% 52%;
+  --primary-foreground: 158 64% 15%;
+  --accent: 280 65% 30%;
+  --accent-foreground: 280 65% 75%;
+  --ring: 158 64% 52%;
+  --chart-1: 158 64% 52%;
+  --chart-2: 190 75% 55%;
+  --chart-3: 280 65% 60%;
+  --chart-4: 40 88% 60%;
+  --chart-5: 340 80% 58%;
+  --sidebar-primary: 158 64% 52%;
+  --sidebar-primary-foreground: 158 64% 15%;
+  --sidebar-ring: 158 64% 52%;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-gray-50 text-gray-900 antialiased;
+    @apply dark:bg-gray-900 dark:text-gray-100;
+  }
+}
+
+@layer components {
+  /* 卡片组件 */
+  .card {
+    @apply bg-white rounded-lg border border-gray-200 shadow-sm;
+    @apply dark:bg-gray-800 dark:border-gray-700;
+  }
+
+  /* 按钮基础样式 */
+  .btn {
+    @apply inline-flex items-center justify-center px-4 py-2 rounded-md font-medium;
+    @apply transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2;
+    @apply disabled:opacity-50 disabled:cursor-not-allowed;
+  }
+
+  .btn-primary {
+    @apply btn bg-primary-600 text-white hover:bg-primary-700;
+    @apply focus:ring-primary-500;
+    @apply dark:bg-primary-500 dark:hover:bg-primary-600;
+  }
+
+  .btn-secondary {
+    @apply btn bg-gray-100 text-gray-700 hover:bg-gray-200;
+    @apply focus:ring-gray-500;
+    @apply dark:bg-gray-700 dark:text-gray-200 dark:hover:bg-gray-600;
+  }
+
+  .btn-outline {
+    @apply btn border border-gray-300 bg-transparent text-gray-700;
+    @apply hover:bg-gray-50 focus:ring-gray-500;
+    @apply dark:border-gray-600 dark:text-gray-300 dark:hover:bg-gray-800;
+  }
+
+  /* 输入框样式 */
+  .input {
+    @apply w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm;
+    @apply placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500;
+    @apply dark:bg-gray-800 dark:border-gray-600 dark:text-white dark:placeholder-gray-400;
+  }
+
+  /* 标签样式 */
+  .label {
+    @apply block text-sm font-medium text-gray-700 mb-1;
+    @apply dark:text-gray-300;
+  }
+
+  /* 链接样式 */
+  .link {
+    @apply text-primary-600 hover:text-primary-700 hover:underline;
+    @apply dark:text-primary-400 dark:hover:text-primary-300;
+  }
+}
+
+@layer utilities {
+  /* 文本截断 */
+  .text-truncate {
+    @apply overflow-hidden whitespace-nowrap text-ellipsis;
+  }
+
+  /* 隐藏滚动条 */
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/* ============================================
+   认证页面动画系统
+   ============================================ */
+
+/* 入场动画 - 从下往上淡入 */
+@keyframes fade-in-up {
+  from {
+    transform: translateY(40px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* 入场动画 - 从上往下淡入 */
+@keyframes fade-in-down {
+  from {
+    transform: translateY(-20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* 入场动画 - 从左侧滑入 */
+@keyframes slide-in-left {
+  from {
+    transform: translateX(-100px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+/* 入场动画 - 从左侧淡入（较小位移） */
+@keyframes fade-in-left {
+  from {
+    transform: translateX(-20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+/* 入场动画 - 缩放淡入 */
+@keyframes scale-in {
+  from {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* 光晕脉冲动画 */
+@keyframes pulse-scale {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 0.3;
+  }
+  50% {
+    transform: scale(1.2);
+    opacity: 0.5;
+  }
+}
+
+@keyframes pulse-scale-alt {
+  0%,
+  100% {
+    transform: scale(1.2);
+    opacity: 0.4;
+  }
+  50% {
+    transform: scale(1);
+    opacity: 0.6;
+  }
+}
+
+@keyframes pulse-scale-slow {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 0.3;
+  }
+  50% {
+    transform: scale(1.3);
+    opacity: 0.5;
+  }
+}
+
+/* 浮点上下移动动画 */
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0);
+    opacity: 0.2;
+  }
+  50% {
+    transform: translateY(-20px);
+    opacity: 0.5;
+  }
+}
+
+/* 箭头弹跳动画 */
+@keyframes arrow-bounce {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(4px);
+  }
+}
+
+/* 错误抖动动画 */
+@keyframes shake {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  10%,
+  30%,
+  50%,
+  70%,
+  90% {
+    transform: translateX(-5px);
+  }
+  20%,
+  40%,
+  60%,
+  80% {
+    transform: translateX(5px);
+  }
+}
+
+/* emoji 闪烁动画 */
+@keyframes emoji-blink {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+/* 旋转加载动画 */
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* 动画工具类 */
+.animate-fade-in-up {
+  animation: fade-in-up 0.8s ease-out both;
+}
+
+.animate-fade-in-down {
+  animation: fade-in-down 0.5s ease-out both;
+}
+
+.animate-slide-in-left {
+  animation: slide-in-left 0.8s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.animate-fade-in-left {
+  animation: fade-in-left 0.6s ease-out both;
+}
+
+.animate-scale-in {
+  animation: scale-in 0.5s ease-out both;
+}
+
+.animate-pulse-scale {
+  animation: pulse-scale 8s ease-in-out infinite;
+}
+
+.animate-pulse-scale-alt {
+  animation: pulse-scale-alt 10s ease-in-out infinite;
+}
+
+.animate-pulse-scale-slow {
+  animation: pulse-scale-slow 12s ease-in-out infinite;
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+.animate-arrow-bounce {
+  animation: arrow-bounce 1.5s ease-in-out infinite;
+}
+
+.animate-shake {
+  animation: shake 0.5s ease-in-out;
+}
+
+.animate-emoji-blink {
+  animation: emoji-blink 2s ease-in-out infinite;
+}
+
+.animate-spin {
+  animation: spin 1s linear infinite;
+}
+
+/* 动画延迟工具类 */
+.animation-delay-100 {
+  animation-delay: 0.1s;
+}
+.animation-delay-200 {
+  animation-delay: 0.2s;
+}
+.animation-delay-300 {
+  animation-delay: 0.3s;
+}
+.animation-delay-400 {
+  animation-delay: 0.4s;
+}
+.animation-delay-500 {
+  animation-delay: 0.5s;
+}
+.animation-delay-600 {
+  animation-delay: 0.6s;
+}
+.animation-delay-700 {
+  animation-delay: 0.7s;
+}
+.animation-delay-800 {
+  animation-delay: 0.8s;
+}
+.animation-delay-900 {
+  animation-delay: 0.9s;
+}
+.animation-delay-1000 {
+  animation-delay: 1s;
+}
+
+/* 浮点动画延迟（错开效果） */
+.float-delay-0 {
+  animation-delay: 0s;
+}
+.float-delay-1 {
+  animation-delay: 0.5s;
+}
+.float-delay-2 {
+  animation-delay: 1s;
+}
+.float-delay-3 {
+  animation-delay: 1.5s;
+}
+.float-delay-4 {
+  animation-delay: 2s;
+}
+.float-delay-5 {
+  animation-delay: 2.5s;
+}
